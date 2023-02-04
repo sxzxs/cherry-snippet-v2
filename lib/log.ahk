@@ -12,7 +12,7 @@ class logger
     static file := true
     static func := true
     static is_extern_info := true
-    static is_log_open := true
+    static is_log_open := false
     static is_out_console := true
     static is_out_file := false
     static console_create_flag := false

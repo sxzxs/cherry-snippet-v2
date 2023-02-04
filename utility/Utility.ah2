@@ -66,7 +66,6 @@ instance_once()
 {
     CurPID := DllCall("GetCurrentProcessId")
     List := WinGetList(A_ScriptFullPath ' ahk_class AutoHotkey')
-	logger.info("清理进程", List)
 	for k,v in List
     { 
 		PID := WinGetPID('ahk_id ' v)

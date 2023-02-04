@@ -30,10 +30,6 @@ main()
 		ExitApp
 	}
 
-	;设置log模式
-	logger.is_log_open := true
-	logger.is_out_file := false
-	logger.is_use_editor := true
 	DetectHiddenWindows true
 	;清理重复进程
 	instance_once()
@@ -51,6 +47,12 @@ main()
 	global g_webview := Webview2_preview()
 	global g_activex := ActiveX_preview()
 	global g_ih := Input_hook()
+
+	;设置log模式
+	logger.is_log_open := cfg['is_log_open']
+	logger.is_out_file := cfg['is_out_file']
+	logger.is_use_editor := cfg['is_use_editor']
+
 	;g_ih.start()
 	;解析数据库
 	Tree_node_data.load_db_data()
@@ -139,7 +141,7 @@ execute_command(*)
 	if(Global_data.current_select_text == '')
 		return
     if(SubStr(Global_data.current_select_text, 1, 3) == ";v2")
-		child_process(A_AhkPath, ['*'], true, { input: Global_data.current_select_text })
+		child_process(A_ScriptDir '\interpreter\ahk-v2\AutoHotkey.exe', ['*'], true, { input: Global_data.current_select_text })
     else if(SubStr(Global_data.current_select_text, 1, 5) == "::bat")
 		ReadProcessStdOut(Global_data.current_select_text)
 	else
