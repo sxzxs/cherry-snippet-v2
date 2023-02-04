@@ -7,7 +7,6 @@
  * @webview2version 1.0.1072.54
  ***********************************************************************/
 
-#Include './ComVar.ahk'
 class WebView2 extends WebView2.Base {
 	/**
 	 * create Edge WebView2 control.
@@ -25,8 +24,12 @@ class WebView2 extends WebView2.Base {
 		if (createdEnvironment)
 			ComCall(3, createdEnvironment, 'ptr', hwnd, 'ptr', ControllerCompletedHandler)	; ICoreWebView2Environment::CreateCoreWebView2Controller Method.
 		else {
-			if (!FileExist(dllPath) && FileExist(t := A_LineFile '\..\' (A_PtrSize * 8) 'bit\WebView2Loader.dll'))
-				dllPath := t
+			SplitPath(A_LineFile,, &dir)
+			dllpath := ""
+			if(A_IsCompiled)
+				dllpath := A_ScriptDir '\lib\' (A_PtrSize * 8) 'bit\WebView2Loader.dll'
+			else
+				dllpath := dir '\' (A_PtrSize * 8) 'bit\WebView2Loader.dll'
 			if (!edgeruntime) {
 				ver := '0.0.0.0'
 				loop files 'C:\Program Files (x86)\Microsoft\EdgeWebView\Application\*', 'D'

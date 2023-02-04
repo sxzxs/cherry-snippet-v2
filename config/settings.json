@@ -16,7 +16,7 @@
     "key_open_search_box": "!space",
     "key_quick_switch_node": "~$^c",
     "key_send": "~$^enter",
-    "last_parse_time": "20230203181710",
+    "last_parse_time": "20230204153318",
     "python_path": "C:\\Python310\\python.exe",
     "tooltip_back_color": "0x1E1E1E",
     "tooltip_font_size": "15",
@@ -44,6 +44,6 @@
     "win_search_box_text_color": "0x663DB5",
     "win_trans": "240",
     "win_w": "700",
-    "win_x": 838,
-    "win_y": 162
+    "win_x": 712,
+    "win_y": 152
 }

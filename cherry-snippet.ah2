@@ -3,7 +3,11 @@
 #include <Class_SQLiteDB>
 #include <TextRender>
 #include <Child_process>
+#Include <ComVar>
 #include <WebView2>
+#include <Direct2D>
+#include <wincapture>
+#include <Gdip_All>
 #include <zmq>
 #include ./utility/Tree_node_data.ah2
 #include ./utility/Listview.ah2
@@ -14,11 +18,18 @@
 #include ./utility/Webview2_preview.ah2
 #include ./utility/ActiveX.ah2
 #include ./utility/Zmq_send2cherry.ah2
+#include ./utility/Input_hook.ah2
 
 #SingleInstance force
 main()
 main()
 {
+	if(!A_IsAdmin)
+	{
+		MsgBox("请已管理员模式重启!!")
+		ExitApp
+	}
+
 	;设置log模式
 	logger.is_log_open := true
 	logger.is_out_file := false
@@ -36,8 +47,11 @@ main()
 	global obj_cfg := Config(A_ScriptDir "/config/settings.json")
 	global cfg := obj_cfg.config
 	global g_tr := TextRender()
+	global g_hook_rendor := TextRender()
 	global g_webview := Webview2_preview()
 	global g_activex := ActiveX_preview()
+	global g_ih := Input_hook()
+	;g_ih.start()
 	;解析数据库
 	Tree_node_data.load_db_data()
 	Main_gui.create()
@@ -45,8 +59,14 @@ main()
 	sender := Zmq_send2cherry()
 
 	;注册热键
-	Hotkey("~esc", (key) => Main_gui.Hide(key))
+	Hotkey("~esc", (key) => (Main_gui.Hide(key)))
 	Hotkey(cfg['key_open_search_box'], (key) => (Main_gui.edit.value := '',Main_gui.list_view.Delete(), Main_gui.show(key)))
+	Hotkey( '^x', ObjBindMethod(g_ih, 'start'))
+
+	HotIf(ObjBindMethod(g_ih, 'is_current_hook_mode'))
+        Hotkey("tab", ObjBindMethod(g_ih, "on_tab", '+'))
+        Hotkey("+tab", ObjBindMethod(g_ih, "on_tab", '-'))
+	HotIf()
 	HotIfWinActive("ahk_id " Main_gui.ui.Hwnd)
         Hotkey("enter", execute_command)
         Hotkey(cfg['key_send'], send_command)
@@ -82,6 +102,12 @@ monitor_file_change()
 					if(cfg['is_use_html_preview'])
 					{
 						logger.info('exporte to html')
+						if(!FileExist(cfg['cherry_tree_path']))
+							MsgBox('cherrytree.exe文件不存在,请在设置中配置!! ' cfg['cherry_tree_path'])
+						if(!FileExist(cfg['db_path']))
+							MsgBox('db.ctb文件不存在,请在设置中配置!!' cfg['db_path'])
+						if(!FileExist(cfg['html_path']))
+							DirCreate(cfg['html_path'])
 						cmd := '"' cfg['cherry_tree_path']  '" "'  cfg['db_path'] '" -x "' cfg['html_path'] '" -w -S'
 						Run(cmd)
 					}

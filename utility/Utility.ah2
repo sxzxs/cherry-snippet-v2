@@ -74,3 +74,23 @@ instance_once()
 			ProcessWaitClose(PID)
     }
 }
+RunAsAdmin()
+{
+	full_command_line := DllCall("GetCommandLine", "str")
+	if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
+	{
+		try
+		{
+			if A_IsCompiled
+				Run '*RunAs "' A_ScriptFullPath '" /restart'
+			else
+				Run '*RunAs "' A_AhkPath '" /restart "' A_ScriptFullPath '"'
+		}
+		catch as e
+		{
+			MsgBox('尝试已管理器重启失败,退出!! ' e.Message)
+			ExitApp
+		}
+	}
+
+}

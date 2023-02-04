@@ -2,8 +2,11 @@
 
 ### 介绍
 `cherry-snippet` 是借助 [cherryTree](https://www.giuspen.com/cherrytree/) 笔记软件,制作的免费开源**文本片段管理工具**
-注: 目前还处于beta版本, 稳定版本[cherry-snippet v1](https://github.com/sxzxs/cherry-snippet)
-v1->v2 改进: 用webview2预览、 d2d绘制hook界面、list列表增加图标
+
+**注**: 目前还处于beta版本, 稳定版本[cherry-snippet v1](https://github.com/sxzxs/cherry-snippet)
+
+*v1->v2 改进: 用webview2预览、 d2d绘制hook界面、list列表增加图标*
+
 * 代码片段**记录**和**快搜**和**预览**
 * 代码片段**上屏输入**到目标窗口
 ![展示](./picture/sample.gif)
