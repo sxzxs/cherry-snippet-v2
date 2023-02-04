@@ -63,7 +63,7 @@ main()
 	;注册热键
 	Hotkey("~esc", (key) => (Main_gui.Hide(key)))
 	Hotkey(cfg['key_open_search_box'], (key) => (Main_gui.edit.value := '',Main_gui.list_view.Delete(), Main_gui.show(key)))
-	Hotkey( '^x', ObjBindMethod(g_ih, 'start'))
+	Hotkey(cfg['hook_open'], ObjBindMethod(g_ih, 'start'))
 
 	HotIf(ObjBindMethod(g_ih, 'is_current_hook_mode'))
         Hotkey("tab", ObjBindMethod(g_ih, "on_tab", '+'))
