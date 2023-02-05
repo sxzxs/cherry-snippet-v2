@@ -44,8 +44,8 @@ Class Input_hook
 		this.clear_value()
 		this.SacHook.Start()
 		this.is_hook_mode := true
-		this.tt.show()
 		this.update()
+		this.tt.show()
 	}
 	clear_value()
 	{
@@ -124,7 +124,7 @@ Class Input_hook
 			g_webview.Navigate(html_file_path, this.tt.right, this.tt.top)
 		else
 			g_hook_rendor.RenderOnScreen(SubStr(preview_command, 1, 1000), 
-								"x:" this.tt.right " y:" this.tt.top " color:" cfg['tooltip_back_color'], 
+								"x:" this.tt.right + 15 " y:" this.tt.top + 15 " color:" cfg['tooltip_back_color'], 
 								"s:" cfg['tooltip_font_size'] " j:left " "c:" cfg['tooltip_text_color'])
 
 		local_match(filter_array, value)
@@ -179,6 +179,7 @@ class text_tab
 	list_high_light_text_color := this.rgb2float(cfg['win_hook_focuscolor'])
 	list_high_light_back_color := this.rgb2float(cfg['win_hook_focusbackcolor'])
 	back_color := this.rgb2float(cfg['win_hook_backgroundcolor'])
+	back_color.A := 0.8
 	font_size := cfg['win_hook_fontsize']
 	img := ''
 	left := right := top := Bottom := 0
@@ -241,7 +242,7 @@ class text_tab
 		for k, v in tab_list
 		{
 			list_one.Push({})
-			list_one[A_Index].text_layout := g.pdwrite.CreateTextLayout(v, this.pTextFormat, A_ScreenWidth, A_ScreenHeight)
+			list_one[A_Index].text_layout := g.pdwrite.CreateTextLayout(v, this.pTextFormat, monitorinfo.width, monitorinfo.height)
 			list_one[A_Index].text_layout_m := list_one[A_Index].text_layout.GetMetrics()
 			tab_list_max_height := list_one[A_Index].text_layout_m['height'] > tab_list_max_height ? list_one[A_Index].text_layout_m['height'] : tab_list_max_height 
 			tab_list_max_width := list_one[A_Index].text_layout_m['width'] > tab_list_max_width ? list_one[A_Index].text_layout_m['width'] : tab_list_max_width 
@@ -350,7 +351,7 @@ class DirectGUI extends Gui {
 	/** @type {ID2D1DCRenderTarget} */
 	render := 0
 
-	__New(Options := '', Title := A_ScriptName, maxwidth := A_ScreenWidth, maxheight := A_ScreenHeight) {
+	__New(Options := '', Title := A_ScriptName, maxwidth := SysGet(78), maxheight := SysGet(79)) {
 		super.__New('+E0x80000 ' Options, Title || A_ScriptName)
 		this.render := this.pd2d1.CreateDCRenderTarget(direct2d_struct('D2D1_RENDER_TARGET_PROPERTIES', , { format: 87, alphamode: 1 }))
 		this.render.BindDC(this.hdc := DllCall('CreateCompatibleDC', 'ptr', 0, 'ptr'),
@@ -365,9 +366,9 @@ class DirectGUI extends Gui {
 		DllCall('DeleteObject', 'ptr', this.hbm)
 		DllCall('DeleteDC', 'ptr', this.hdc)
 	}
-	show(x?, y?, w := A_ScreenWidth, h := A_ScreenHeight, alpha := 255, options := 'NA') {
+	show(x := SysGet(76), y := SysGet(77), w := SysGet(78), h := SysGet(79), alpha := 255, options := 'NA') {
 		super.Show('w' w ' h' h ' ' options ' NoActivate')
-		this.update(this.x := x ?? (A_ScreenWidth - w) >> 1, this.y := y ?? (A_ScreenHeight - h) >> 1,
+		this.update(this.x := x ?? (SysGet(78) - w) >> 1, this.y := y ?? (SysGet(79) - h) >> 1,
 			this.w := w, this.h := h, this.alpha := alpha)
 	}
 	update(x?, y?, w?, h?, alpha?) => DllCall('UpdateLayeredWindow', 'ptr', this.Hwnd, 'ptr', 0, 'int64*', (x ?? this.x) | (y ?? this.y) << 32, 'int64*', (w ?? this.w) | (h ?? this.h) << 32, 'ptr', this.hdc, 'int64*', 0, 'uint', 0, 'uint*', (alpha ?? this.alpha) << 16 | 1 << 24, 'uint', 2)

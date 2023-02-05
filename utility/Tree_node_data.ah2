@@ -31,8 +31,8 @@ class Tree_node_data
 
 		if (!FileExist(cfg['db_path']))
 		{
-			if (FileExist(A_ScriptDir '/data.ctb'))
-				cfg['db_path'] := A_ScriptDir '/data.ctb'
+			if (FileExist(A_ScriptDir '\data.ctb'))
+				cfg['db_path'] := A_ScriptDir '\data.ctb'
 			else
 			{
 				SelectedFile := FileSelect(3, , "选择.ctb文件", "ctb文件 (*.ctb)")
