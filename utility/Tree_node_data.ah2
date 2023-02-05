@@ -16,9 +16,8 @@ class Tree_node_data
 				cfg['cherry_tree_path'] := A_ScriptDir '\..\cherrytree_customization\mingw64\bin\cherrytree.exe'
 			else
 			{
-				run('https://www.giuspen.com/cherrytree/')
-				run('https://pan.baidu.com/s/1_tzJ8SFvCQJXvVo5YxUEMg?pwd=1w2b')
-				SelectedFile := FileSelect(3, , "选择cherrytree.exe文件", "执行文件 (cherrytree.exe)")
+				Run(A_ScriptDir '/README.html')
+				SelectedFile := FileSelect(3, , "选择cherrytree.exe文件, 没有请看帮助文档安装", "执行文件 (cherrytree.exe)")
 				if SelectedFile = ""
 				{
 					MsgBox "The user didn't select anything."

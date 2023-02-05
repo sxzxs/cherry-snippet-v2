@@ -23,7 +23,7 @@
 |-|-|
 |系统|开启html预览需要**win10**或者安装 **webview2 runtime**|
 |ahk 版本| [autohotkey v2H](https://github.com/thqby/AutoHotkey_H/releases)|
-|cherry|[cherryTee定制 百度](https://pan.baidu.com/s/1uDmzAsB_tgwexUccUjM0uA?pwd=bet2) 提取码：bet2 <br>  [cherryTree定制 蓝奏云](https://wwob.lanzoum.com/iWmdr0mpjnfa) 密码:1bkm
+|cherryTree.exe|[cherryTee定制 百度网盘](https://pan.baidu.com/s/1uDmzAsB_tgwexUccUjM0uA?pwd=bet2) 提取码：bet2 <br>  [cherryTree定制 蓝奏云](https://wwob.lanzoum.com/iWmdr0mpjnfa) 密码:1bkm
 |dx| [dx11 依赖下载](https://zhangyue667.lanzouh.com/DirectXRepairEnhanced)|
 
 ### 安装步骤
