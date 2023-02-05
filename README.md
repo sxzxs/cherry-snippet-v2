@@ -32,7 +32,7 @@
 
 ### 使用说明
 ##### 普通搜索模式
-* 打开搜索界面, 默认 atl+空格
+* 打开搜索界面, 默认 shift+enter
 * enter 执行代码片段
 * ctrl+enter 目标窗口输入
 * ctrl+c 跳转cherrytree相应节点

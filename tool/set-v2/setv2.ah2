@@ -199,12 +199,33 @@ main()
                 if(_ImGui_BeginTabItem("快捷键设置"))
                 {
                     _ImGui_InputText("打开搜索框##open_search_box", &key_open_search_box)
+					_ImGui_SameLine()
+					if(_ImGui_Button('热键##打开搜索框热键'))
+						hotkey_get(&key_open_search_box, '打开搜索框热键')
                     _ImGui_InputText("发送文本##send_text", &key_send)
+					_ImGui_SameLine()
+					if(_ImGui_Button('热键##发送文本热键'))
+						hotkey_get(&key_send, '发送文本热键')
                     _ImGui_InputText("编辑当前指令##edit_now", &key_edit_now)
+					_ImGui_SameLine()
+					if(_ImGui_Button('热键##编辑当前指令热键'))
+						hotkey_get(&key_edit_now, '编辑当前指令')
                     _ImGui_InputText("增加一条指令##add_a_command", &key_edit_new)
+					_ImGui_SameLine()
+					if(_ImGui_Button('热键##增加一条指令热键'))
+						hotkey_get(&key_edit_new, '增加一条指令')
                     _ImGui_InputText("打开命令添加界面##open_command_page", &key_open_editor)
+					_ImGui_SameLine()
+					if(_ImGui_Button('热键##打开命令添加界面热键'))
+						hotkey_get(&key_open_editor, '打开命令添加界面')
                     _ImGui_InputText("hook模式快捷键##hook_mode_key", &hook_open)
+					_ImGui_SameLine()
+					if(_ImGui_Button('热键##hook模式快捷键热键'))
+						hotkey_get(&hook_open, 'hook模式快捷键')
                     _ImGui_InputText("跳转到CherryTree的当前节点##key_quick_switch_node", &key_quick_switch_node)
+					_ImGui_SameLine()
+					if(_ImGui_Button('热键##跳转到CherryTree的当前节点热键'))
+						hotkey_get(&key_quick_switch_node, '跳转到CherryTree的当前节点')
 
                     _Imgui_toggle_button("打开搜索框需要双击##is_open_search_box_double_press", &is_open_search_box_double_press)
                     _ImGui_SameLine()
@@ -212,6 +233,7 @@ main()
                     _Imgui_toggle_button("hook模式需要双击##is_hook_open_double_press", &is_hook_open_double_press)
                     _ImGui_SameLine()
                     _ImGui_Text("打开hook编辑框是否双击")
+
 
                     _ImGui_EndTabItem()
                 }
@@ -461,4 +483,19 @@ class Gif_timmer
         if(this.count == this.length)
             this.count := 1
     }
+}
+
+hotkey_get(&key, title)
+{
+	MyGui := Gui(, title)
+	Mygui.Opt('+AlwaysOnTop -DPIScale  +LastFound -Resize -HScroll')
+	MyGui.Add("Hotkey", "vChosenHotkey").OnEvent('change', MenuHandler)
+	MyGui.Show
+
+	MenuHandler(argv*) 
+	{
+		logger.info(argv)
+		logger.info(MyGui['ChosenHotkey'].Value)
+		key := MyGui['ChosenHotkey'].Value
+	}
 }
