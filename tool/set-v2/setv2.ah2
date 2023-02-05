@@ -100,6 +100,9 @@ main()
             static key_edit_new := g_config["key_edit_new"]
             static key_open_editor := g_config["key_open_editor"]
             static hook_open := g_config["hook_open"]
+			static key_quick_switch_node := g_config['key_quick_switch_node']
+			static is_open_search_box_double_press := g_config['is_open_search_box_double_press']
+			static is_hook_open_double_press := g_config['is_hook_open_double_press']
             ;searchbox
             static win_w := g_config["win_w"]
             static win_search_box_back_color := _Imgui_bgr2rgb(Integer(g_config["win_search_box_back_color"]))
@@ -121,6 +124,8 @@ main()
             static tooltip_text_color := _Imgui_bgr2rgb(Integer(g_config["tooltip_text_color"]))
             static tooltip_font_size := g_config["tooltip_font_size"]
             static tooltip_random := g_config["tooltip_random"]
+			static is_use_html_preview := g_config["is_use_html_preview"]
+            static html_path := g_config["html_path"]
             ;other
             static auto_english := g_config["auto_english"]
             static tooltip_help := g_config["tooltip_help"]
@@ -184,6 +189,11 @@ main()
                     _ImGui_Text("预览随机颜色:")
                     _ImGui_SameLine()
                     _Imgui_toggle_button("是否预览随机颜色[0/1]##tooltip_random", &tooltip_random)
+                    _ImGui_Text("使用HTML预览:")
+                    _ImGui_SameLine()
+                    _Imgui_toggle_button("使用HTML预览##is_use_html_preview", &is_use_html_preview)
+                    _ImGui_InputText("cherryTree导出HTML路径##html_path", &html_path)
+
                     _ImGui_EndTabItem()
                 }
                 if(_ImGui_BeginTabItem("快捷键设置"))
@@ -194,6 +204,14 @@ main()
                     _ImGui_InputText("增加一条指令##add_a_command", &key_edit_new)
                     _ImGui_InputText("打开命令添加界面##open_command_page", &key_open_editor)
                     _ImGui_InputText("hook模式快捷键##hook_mode_key", &hook_open)
+                    _ImGui_InputText("跳转到CherryTree的当前节点##key_quick_switch_node", &key_quick_switch_node)
+
+                    _Imgui_toggle_button("打开搜索框需要双击##is_open_search_box_double_press", &is_open_search_box_double_press)
+                    _ImGui_SameLine()
+                    _ImGui_Text("打开搜索框是否双击")
+                    _Imgui_toggle_button("hook模式需要双击##is_hook_open_double_press", &is_hook_open_double_press)
+                    _ImGui_SameLine()
+                    _ImGui_Text("打开hook编辑框是否双击")
 
                     _ImGui_EndTabItem()
                 }
@@ -278,8 +296,11 @@ main()
                 g_config["key_edit_new"] := key_edit_new
                 g_config["key_open_editor"] := key_open_editor
                 g_config["hook_open"] := hook_open
+                g_config["key_quick_switch_node"] := key_quick_switch_node
                 g_config["win_w"] := win_w
                 g_config["win_search_box_back_color"] := Format("0x{:06X}", _Imgui_bgr2rgb(win_search_box_back_color & 0xffffff))
+                g_config["is_open_search_box_double_press"] := is_open_search_box_double_press
+                g_config["is_hook_open_double_press"] := is_hook_open_double_press
 
                 g_config["win_search_box_text_color"] := Format("0x{:06X}", _Imgui_bgr2rgb(win_search_box_text_color & 0xffffff))
                 g_config["win_search_box_font_size"] := win_search_box_font_size
@@ -294,6 +315,8 @@ main()
                 g_config["tooltip_text_color"] := Format("0x{:06X}", _Imgui_bgr2rgb(tooltip_text_color & 0xffffff))
                 g_config["tooltip_font_size"] := tooltip_font_size
                 g_config["tooltip_random"] := tooltip_random
+                g_config["is_use_html_preview"] := is_use_html_preview
+                g_config["html_path"] := html_path
 
                 g_config["auto_english"] := auto_english
                 g_config["tooltip_help"] := tooltip_help

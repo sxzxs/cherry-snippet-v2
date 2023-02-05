@@ -173,19 +173,19 @@ class text_tab
 {
 	tab_list := []
 	input_text := ''
-	input_text_color := { R: 0.788, G: 0.894, B: 0.494, A: 1 }
+	input_text_color := this.rgb2float(cfg['win_hook_codecolor'])
 	splite_line_color := {R: 0.400, G: 0.239, B: 0.710, A: 1 }
-	list_text_color := { R: 0.933, G: 0.925, B: 0.886, A: 1 }
-	list_high_light_text_color := { R: 0.027, G: 0.047, B: 0.051, A: 1 }
-	list_high_light_back_color := { R: 0.788, G: 0.894, B: 0.494, A: 1 }
-	back_color := { R: 0.267, G: 0.267, B: 0.267, A: 0.8 }
-	font_size := 37
+	list_text_color := this.rgb2float(cfg['win_hook_textcolor'])
+	list_high_light_text_color := this.rgb2float(cfg['win_hook_focuscolor'])
+	list_high_light_back_color := this.rgb2float(cfg['win_hook_focusbackcolor'])
+	back_color := this.rgb2float(cfg['win_hook_backgroundcolor'])
+	font_size := cfg['win_hook_fontsize']
 	img := ''
 	left := right := top := Bottom := 0
 	__New(dragon_pic_path := A_ScriptDir '\icons\索隆.png', argv*) 
 	{
 		this.g := g := DirectGUI(argv*)
-		this.pTextFormat := pTextFormat := g.pdwrite.CreateTextFormat('Microsoft YaHei UI', 0, 400, 0, 5, this.font_size, 'en-us')
+		this.pTextFormat := pTextFormat := g.pdwrite.CreateTextFormat(cfg['win_hook_font'], 0, 400, 0, 5, this.font_size, 'en-us')
 		pTextFormat.SetTextAlignment(0)
 		pTextFormat.SetParagraphAlignment(0)
 		this.pBrush_back := g.render.CreateSolidColorBrush(direct2d_struct('D2D1_COLOR_F', , this.back_color))
@@ -332,6 +332,16 @@ class text_tab
 
 		g.render.EndDraw()
 		g.update()
+	}
+
+	rgb2float(x)
+	{
+		x := Integer('0x' x)
+		g := ((x & 0x00ff00) >> 8) / 255
+		r := ((x & 0xff0000) >> 16) / 255
+		b := ((x & 0xff)) / 255
+		color := {R : r, G : g, B : b, A : 1}
+		return color
 	}
 }
 

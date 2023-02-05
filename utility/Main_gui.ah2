@@ -52,13 +52,24 @@ class Main_gui
 	{
 		this.tray_menue := A_TrayMenu
 		this.tray_menue.Delete()
-        this.tray_menue.Add("搜索`t ALT+spcce", (*) => this.show())
+		TraySetIcon(A_ScriptDir '\icons\main.ico')
+        this.tray_menue.Add("搜索`t", (*) => this.show())
         this.tray_menue.Add("编辑`t(&E)", (*) => run("*RunAs " cfg['cherry_tree_path'] " " cfg['db_path']))
         this.tray_menue.Add("设置`t(&S)", (*) => run(A_ScriptDir "\tool\set-v2\setv2.exe"))
+        this.tray_menue.Add("帮助`t(&H)", (*) => run(A_ScriptDir "\README.html"))
         this.tray_menue.Add()
         this.tray_menue.Add("重启`t(&R)", (*) => Reload())
+        this.tray_menue.Add("暂停`t(&P)", (*) => (Suspend(), this.tray_menue.ToggleCheck("暂停`t(&P)")))
         this.tray_menue.Add("退出`t(&X)", (*) => ExitApp())
         this.tray_menue.Default := "1&"
+
+		this.tray_menue.SetIcon('搜索`t', A_ScriptDir '\icons\搜索.ico')
+		this.tray_menue.SetIcon('编辑`t(&E)', A_ScriptDir '\icons\编辑.ico')
+		this.tray_menue.SetIcon('设置`t(&S)', A_ScriptDir '\icons\设置.ico')
+		this.tray_menue.SetIcon('帮助`t(&H)', A_ScriptDir '\icons\帮助.ico')
+		this.tray_menue.SetIcon('重启`t(&R)', A_ScriptDir '\icons\重启.ico')
+		this.tray_menue.SetIcon('暂停`t(&P)', A_ScriptDir '\icons\暂停.ico')
+		this.tray_menue.SetIcon('退出`t(&X)', A_ScriptDir '\icons\退出.ico')
 	}
 	static create_event()
 	{

@@ -1,4 +1,24 @@
-﻿#include <log>
+﻿;===============================================================================
+; cherry-snippet 代码片段管理工具 
+; Tested on AHK v2.0.2 Unicode 64-bit, Windows /10
+; github https://github.com/sxzxs/cherry-snippet-v2 
+;===============================================================================
+; Script compiler directives
+;@Ahk2Exe-SetCompanyName cherry-snippet				; 企业信息
+;@Ahk2Exe-SetCopyright Copyright (c) cherry-snippet			; 版权信息
+;@Ahk2Exe-SetLegalTrademarks 文本管理工具				; 更改合法商标信息.
+;@Ahk2Exe-SetDescription 文本管理工具			; 文件说明
+;@Ahk2Exe-SetFileVersion 0.2.0				; 文件版本
+;@Ahk2Exe-SetInternalName 文本管理工具			; 文件内部名
+;@Ahk2Exe-SetLanguage 0x0804				; 区域语言
+;@Ahk2Exe-SetName 文本管理工具				; 名称
+;@Ahk2Exe-SetProductName 文本管理工具			; 产品名称
+;@Ahk2Exe-SetOrigFilename cherry-snippet.exe				; 原始文件名称
+;@Ahk2Exe-SetProductVersion 0.2.0			; 产品版本号
+;@Ahk2Exe-SetVersion 0.2.0				; 版本号
+;@Ahk2Exe-SetMainIcon %A_ScriptDir%\icons\main.ico
+
+#include <log>
 #include <py>
 #include <Class_SQLiteDB>
 #include <TextRender>
