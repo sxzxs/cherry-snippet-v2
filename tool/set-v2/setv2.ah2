@@ -193,6 +193,14 @@ main()
                     _ImGui_SameLine()
                     _Imgui_toggle_button("使用HTML预览##is_use_html_preview", &is_use_html_preview)
                     _ImGui_InputText("cherryTree导出HTML路径##html_path", &html_path)
+					if(_ImGui_Button("html导出路径##html导出路径"))
+					{
+						SelectedFolder := DirSelect(, 3)
+						if SelectedFolder = ""
+							MsgBox "You didn't select a folder."
+						else
+							html_path := SelectedFolder
+					}
 
                     _ImGui_EndTabItem()
                 }

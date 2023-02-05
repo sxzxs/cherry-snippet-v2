@@ -41,6 +41,11 @@
 * 打开hook界面, 默认 shift+空格
 * enter 目标窗口输入
 
+#### 注意事项
+* .ctb文件和导出路径一般不要设置到C盘(未知权限问题)
+* cherrytree设置`启用系统托盘`可以加快跳转
+![cherrytree启用系统托盘](./picture/cherrytree%E8%AE%BE%E7%BD%AE.png)
+
 ### TODO
 * hook模式添加
 * 快捷键设置ui完善
