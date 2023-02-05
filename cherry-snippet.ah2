@@ -76,7 +76,7 @@ main()
 		Hotkey("down", (*) => Main_gui.focus_next_row())
 		Hotkey("tab", (*) => Main_gui.focus_next_row())
 		Hotkey("+tab", (*) => Main_gui.focus_before_row())
-		Hotkey(cfg['key_quick_switch_node'], (*) => (sender.send_command(Global_data.current_select_node_id), Main_gui.hide()))
+		Hotkey(cfg['key_quick_switch_node'], (*) => (Main_gui.hide(), sender.send_command(Global_data.current_select_node_id)))
 	HotIf()
 	;注册消息
 	OnMessage(0x201, WM_LBUTTONDOWN)

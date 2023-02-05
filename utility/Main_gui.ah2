@@ -110,7 +110,8 @@ class Main_gui
 		if(r == 0)
 			return
 		path := this.list_view.GetText(r)
-		preview_command := Tree_node_data.id_path[Tree_node_data.path2id[path]]['text']
+		;preview_command := Tree_node_data.id_path[Tree_node_data.path2id[path]]['text']
+		preview_command := Tree_node_data.get_text_from_id(Tree_node_data.path2id[path])
 		Global_data.current_select_text := preview_command
 		Global_data.current_select_node_id := Tree_node_data.path2id[path]
         x := cfg['win_x'] + cfg['win_w'] + 12

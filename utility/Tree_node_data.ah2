@@ -46,7 +46,7 @@ class Tree_node_data
 			obj_cfg.saveconfig()
 		}
 
-		DB := SQLiteDB()
+		this.DB := DB := SQLiteDB()
 		If !DB.OpenDB(cfg['db_path']) 
 		{
 			MsgBox("Msg:`t" . DB.ErrorMsg . "`nCode:`t" . DB.ErrorCode, "SQLite Error", 16)
@@ -91,7 +91,8 @@ class Tree_node_data
 				{
 					id_path[k]["father_id"].Push(0)
 					id_path[k]["path"] := path_string 
-					id_path[k]['text'] := obj_sql_node.map_node[k][3]
+					;比较占内存,改为从db实时获取
+					;id_path[k]['text'] := obj_sql_node.map_node[k][3]
 					path_string_file := StrReplace(path_string_file, A_Space, "_")
 					path_string_file := StrReplace(path_string_file, "/", "-")
 					id_path[k]["path_file"] := path_string_file "_" k
@@ -108,6 +109,16 @@ class Tree_node_data
 		}
     	cfg['last_parse_time'] := A_now
 		obj_cfg.saveconfig()
+	}
+	static get_text_from_id(id)
+	{
+    	SQL := "SELECT * FROM node WHERE node_id = " id ";"
+		If !this.DB.GetTable(SQL, &Result)
+		{
+			MsgBox(16, 'SQLite Error', "Msg:`t" . this.DB.ErrorMsg . "`nCode:`t" . this.DB.ErrorCode)
+			return ''
+		}
+		return Result.rows[1][3]
 	}
 	static __Delete() 
 	{}

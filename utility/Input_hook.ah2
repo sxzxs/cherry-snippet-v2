@@ -113,7 +113,8 @@ Class Input_hook
 			g_webview.hide()
 			return
 		}
-		preview_command := Tree_node_data.id_path[Tree_node_data.path2id[this.tab_value[this.list_index]]]['text']
+		;preview_command := Tree_node_data.id_path[Tree_node_data.path2id[this.tab_value[this.list_index]]]['text']
+		preview_command := Tree_node_data.get_text_from_id(Tree_node_data.path2id[this.tab_value[this.list_index]])
 		html_file_path := cfg['html_path'] "\data.ctb_HTML\" Tree_node_data.id_path[Tree_node_data.path2id[this.tab_value[this.list_index]]]["path_file"] ".html"
 
 		Global_data.current_select_text := preview_command
