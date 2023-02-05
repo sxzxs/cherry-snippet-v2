@@ -19,11 +19,7 @@ class Zmq_send2cherry
 		{
 			zmq_send_string(this.socket, data)
 			Run("*RunAs " cfg['cherry_tree_path'] " " cfg['db_path'])
-			if(!WinWaitActive('ahk_exe cherrytree.exe', , 2))
-			{
-				logger.info("Active cherry error!")
-				return
-			}
+			WinActivate('ahk_exe cherrytree.exe')
 		}
 	}
 }
