@@ -61,7 +61,8 @@ Class Input_hook
 		this.is_hook_mode := false
 		this.update()
 		this.tt.hide()
-		g_hook_rendor.RenderOnScreen(''), g_hook_rendor.clear(), g_hook_rendor.FreeMemory()
+		if(!cfg['is_use_html_preview'])
+			g_hook_rendor.RenderOnScreen(''), g_hook_rendor.clear(), g_hook_rendor.FreeMemory()
 		g_webview.hide()
 	}
 	SacChar(ih, char)
@@ -112,7 +113,8 @@ Class Input_hook
 		this.update(,, this.list_index - start_index + 1)
 		if(this.tab_value.Length == 0)
 		{
-			g_hook_rendor.RenderOnScreen(''), g_hook_rendor.clear(), g_hook_rendor.FreeMemory()
+			if(!cfg['is_use_html_preview'])
+				g_hook_rendor.RenderOnScreen(''), g_hook_rendor.clear(), g_hook_rendor.FreeMemory()
 			g_webview.hide()
 			return
 		}

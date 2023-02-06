@@ -42,6 +42,8 @@
 
 #SingleInstance force
 #WinActivateForce
+#ErrorStdOut
+#Warn All, Off
 main()
 main()
 {
