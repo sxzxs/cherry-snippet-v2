@@ -37,7 +37,7 @@ Class Input_hook
 			if(this.list_index < 1)
 				this.list_index := this.tab_value.Length
 		}
-		this.hook_mode_quck_search()
+		this.hook_mode_quck_search(false)
 	}
 	start(argv*)
 	{
@@ -61,7 +61,7 @@ Class Input_hook
 		this.is_hook_mode := false
 		this.update()
 		this.tt.hide()
-		g_hook_rendor.RenderOnScreen('')
+		g_hook_rendor.RenderOnScreen(''), g_hook_rendor.clear(), g_hook_rendor.FreeMemory()
 		g_webview.hide()
 	}
 	SacChar(ih, char)
@@ -83,15 +83,18 @@ Class Input_hook
 			this.hook_mode_quck_search()
 		}
 	}
-	hook_mode_quck_search()
+	hook_mode_quck_search(is_filter := true)
 	{
-		this.tab_value := []
-		for k,v in Tree_node_data.node_data
+		if(is_filter)
 		{
-			if(this.current_hook_string == '')
-				break
-			if(local_match(StrSplit(this.current_hook_string, ' '), v))
-				this.tab_value.Push(v)
+			this.tab_value := []
+			for k,v in Tree_node_data.node_data
+			{
+				if(this.current_hook_string == '')
+					break
+				if(local_match(StrSplit(this.current_hook_string, ' '), v))
+					this.tab_value.Push(v)
+			}
 		}
 		midle_show_number := cfg['win_hook_total_show_number'] / 2
 		start_index := 1
@@ -109,7 +112,7 @@ Class Input_hook
 		this.update(,, this.list_index - start_index + 1)
 		if(this.tab_value.Length == 0)
 		{
-			g_hook_rendor.RenderOnScreen('')
+			g_hook_rendor.RenderOnScreen(''), g_hook_rendor.clear(), g_hook_rendor.FreeMemory()
 			g_webview.hide()
 			return
 		}
@@ -153,6 +156,7 @@ Class Input_hook
 			show_string := '⌨' 
 		try
 		{
+			x += 20, y += 50
 			this.tt.update(show_string, x, y, show_list, high_light_index)
 		}
 	}

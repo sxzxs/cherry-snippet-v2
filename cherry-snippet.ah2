@@ -41,6 +41,7 @@
 #include ./utility/Input_hook.ah2
 
 #SingleInstance force
+#WinActivateForce
 main()
 main()
 {
@@ -73,7 +74,10 @@ main()
 	logger.is_out_file := cfg['is_out_file']
 	logger.is_use_editor := cfg['is_use_editor']
 
-	;g_ih.start()
+	;初始化
+	;创建目录
+	if(!FileExist(cfg['html_path'] '\data.ctb_HTML\res\'))
+		DirCreate(cfg['html_path'] '\data.ctb_HTML\res\')
 	;解析数据库
 	Tree_node_data.load_db_data()
 	Main_gui.create()
@@ -82,8 +86,8 @@ main()
 
 	;注册热键
 	Hotkey("~esc", (key) => (Main_gui.Hide(key)))
-	Hotkey(cfg['key_open_search_box'], (key) => (Main_gui.edit.value := '',Main_gui.list_view.Delete(), Main_gui.show(key)))
-	Hotkey(cfg['hook_open'], ObjBindMethod(g_ih, 'start'))
+	Hotkey(cfg['key_open_search_box'], (key) => (copy_css2res(), Main_gui.edit.value := '',Main_gui.list_view.Delete(), Main_gui.show(key)))
+	Hotkey(cfg['hook_open'], (key) => (copy_css2res(), g_ih.start()))
 
 	HotIf(ObjBindMethod(g_ih, 'is_current_hook_mode'))
         Hotkey("tab", ObjBindMethod(g_ih, "on_tab", '+'))
@@ -104,6 +108,15 @@ main()
 	SetTimer(monitor_file_change, 1000)
 }
 
+copy_css2res()
+{
+	try
+	{
+		if(FileExist(A_ScriptDir '\styles4.css') && !FileExist(cfg['html_path'] '\data.ctb_HTML\res\styles4.css'))
+		FileCopy A_ScriptDir '\styles4.css', cfg['html_path'] '\data.ctb_HTML\res\', 1
+	}
+}
+
 monitor_file_change()
 {
 	change_time := FileGetTime(cfg['db_path'], 'M')
@@ -113,13 +126,18 @@ monitor_file_change()
 		List := WinGetList('ahk_exe cherrytree.exe',, 'Program Manager')
 		for k,v in List
 		{
-			title := WinGetTitle('ahk_id ' v)
+			title := ''
+			try 
+			{
+				title := WinGetTitle('ahk_id ' v)
+			}
 			if(InStr(title, " - " db_dir " - CherryTree"))
 			{
             	if(instr(title, "*"))
 					logger.info('Now is changing...')
 				else
 				{
+					Tree_node_data.load_db_data()
  					SetTimer(monitor_file_change, 0)  ; 即此处计时器关闭自己.
 					if(cfg['is_use_html_preview'])
 					{
@@ -128,13 +146,16 @@ monitor_file_change()
 							MsgBox('cherrytree.exe文件不存在,请在设置中配置!! ' cfg['cherry_tree_path'])
 						if(!FileExist(cfg['db_path']))
 							MsgBox('db.ctb文件不存在,请在设置中配置!!' cfg['db_path'])
-						if(!FileExist(cfg['html_path']))
-							DirCreate(cfg['html_path'])
+						if(!FileExist(cfg['html_path'] '\data.ctb_HTML\res\'))
+							DirCreate(cfg['html_path'] '\data.ctb_HTML\res\')
 						cmd := '"' cfg['cherry_tree_path']  '" "'  cfg['db_path'] '" -x "' cfg['html_path'] '" -w -S'
-						Run(cmd)
+						try
+						{
+							RunWait(cmd)
+							FileCopy A_ScriptDir '\styles4.css', cfg['html_path'] '\data.ctb_HTML\res\', 1
+						}
 					}
 					logger.info('again parse db...')
-					Tree_node_data.load_db_data()
  					SetTimer(monitor_file_change, 250)  ; 重新开启定时器
 				}
 			}
