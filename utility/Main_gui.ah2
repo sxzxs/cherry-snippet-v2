@@ -129,6 +129,8 @@ class Main_gui
         y := cfg['win_y'] + 12
 		html_file_path := cfg['html_path'] "\data.ctb_HTML\" Tree_node_data.id_path[Tree_node_data.path2id[path]]["path_file"] ".html"
 		logger.info(html_file_path)
+		if(cfg['is_use_html_preview'] && !FileExist(html_file_path))
+			g_webview.hide()
 		if(cfg['is_use_html_preview'] && FileExist(html_file_path))
 			g_webview.Navigate(html_file_path, x - 12, y - 12)
 		else

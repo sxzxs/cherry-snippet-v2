@@ -79,7 +79,22 @@ main()
 	;初始化
 	;创建目录
 	if(!FileExist(cfg['html_path'] '\data.ctb_HTML\res\'))
-		DirCreate(cfg['html_path'] '\data.ctb_HTML\res\')
+	{
+		try
+		{
+			DirCreate(cfg['html_path'] '\data.ctb_HTML\res\')
+		}
+		catch as e
+		{
+			MsgBox('创建html导出目录失败: ' cfg['html_path'] '`n 将尝试在' A_MyDocuments '创建')
+			cfg['html_path'] := A_MyDocuments
+			try
+			{
+				DirCreate(cfg['html_path'] '\data.ctb_HTML\res\')
+			}
+			obj_cfg.saveconfig()
+		}
+	}
 	;解析数据库
 	Tree_node_data.load_db_data()
 	Main_gui.create()
@@ -108,6 +123,11 @@ main()
 	OnMessage(0x201, WM_LBUTTONDOWN)
 	;定时监控cherryTree data文件变化
 	SetTimer(monitor_file_change, 1000)
+	;开监控db修改html导出线程
+	thread_find_image := Worker('#include ' A_scriptdir '/data2html.ah2')
+	loop
+	{ 
+	}until(thread_find_image.Ready)
 }
 
 copy_css2res()
@@ -139,11 +159,14 @@ monitor_file_change()
 					logger.info('Now is changing...')
 				else
 				{
+					logger.info('start parse db...')
 					Tree_node_data.load_db_data()
+					logger.info('parse db end')
+					/*
  					SetTimer(monitor_file_change, 0)  ; 即此处计时器关闭自己.
 					if(cfg['is_use_html_preview'])
 					{
-						logger.info('exporte to html')
+						logger.info('exporte to html...')
 						if(!FileExist(cfg['cherry_tree_path']))
 							MsgBox('cherrytree.exe文件不存在,请在设置中配置!! ' cfg['cherry_tree_path'])
 						if(!FileExist(cfg['db_path']))
@@ -156,14 +179,16 @@ monitor_file_change()
 							RunWait(cmd)
 							FileCopy A_ScriptDir '\styles4.css', cfg['html_path'] '\data.ctb_HTML\res\', 1
 						}
+						logger.info('export html end')
 					}
-					logger.info('again parse db...')
  					SetTimer(monitor_file_change, 250)  ; 重新开启定时器
+					*/
 				}
 			}
 		}
 	}
 }
+
 
 send_command(*)
 {

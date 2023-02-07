@@ -125,6 +125,8 @@ Class Input_hook
 		Global_data.current_select_text := preview_command
 		Global_data.current_select_node_id := Tree_node_data.path2id[this.tab_value[this.list_index]]
 
+		if(cfg['is_use_html_preview'] && !FileExist(html_file_path))
+			g_webview.hide()
 		if(cfg['is_use_html_preview'] && FileExist(html_file_path))
 			g_webview.Navigate(html_file_path, this.tt.right, this.tt.top)
 		else
