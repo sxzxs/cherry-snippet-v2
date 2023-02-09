@@ -163,27 +163,6 @@ monitor_file_change()
 					logger.info('start parse db...')
 					Tree_node_data.load_db_data()
 					logger.info('parse db end')
-					/*
- 					SetTimer(monitor_file_change, 0)  ; 即此处计时器关闭自己.
-					if(cfg['is_use_html_preview'])
-					{
-						logger.info('exporte to html...')
-						if(!FileExist(cfg['cherry_tree_path']))
-							MsgBox('cherrytree.exe文件不存在,请在设置中配置!! ' cfg['cherry_tree_path'])
-						if(!FileExist(cfg['db_path']))
-							MsgBox('db.ctb文件不存在,请在设置中配置!!' cfg['db_path'])
-						if(!FileExist(cfg['html_path'] '\data.ctb_HTML\res\'))
-							DirCreate(cfg['html_path'] '\data.ctb_HTML\res\')
-						cmd := '"' cfg['cherry_tree_path']  '" "'  cfg['db_path'] '" -x "' cfg['html_path'] '" -w -S'
-						try
-						{
-							RunWait(cmd)
-							FileCopy A_ScriptDir '\styles4.css', cfg['html_path'] '\data.ctb_HTML\res\', 1
-						}
-						logger.info('export html end')
-					}
- 					SetTimer(monitor_file_change, 250)  ; 重新开启定时器
-					*/
 				}
 			}
 		}
