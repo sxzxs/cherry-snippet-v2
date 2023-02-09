@@ -1,5 +1,8 @@
 #include <imgui>
 #include <log>
+DetectHiddenWindows true
+if(A_args.Length >= 1)
+	main_script_pid := A_Args[1]
 _ImGui_EnableViewports(true)
 
 g_config_path := A_ScriptDir "\..\..\config\settings.json"
@@ -377,7 +380,11 @@ main()
                 g_is_shandian := false
                 SetTimer(()=> g_is_shandian := false, -2000)
                 gif_tim_shandian.Start()
-                tooltip("请重新启动auto-command", 0, 0)
+				if(IsSet(main_script_pid))
+				{
+					PostMessage(0x111, 65303,,, 'ahk_pid ' main_script_pid)
+					ExitApp(0)
+				}
             }
             _ImGui_SameLine()
             static color_get := 0

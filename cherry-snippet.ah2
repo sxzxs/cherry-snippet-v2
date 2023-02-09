@@ -57,7 +57,7 @@ main()
 	;清理重复进程
 	instance_once()
 	;检查是否有重复进程运行
-	if(is_single_instance('cherry-snippet'))
+	if(Single_instance.create('cherry-snippet'))
 	{
 		MsgBox('提示,程序已启动!`n请勿重复运行')
 		ExitApp
@@ -121,6 +121,7 @@ main()
 	HotIf()
 	;注册消息
 	OnMessage(0x201, WM_LBUTTONDOWN)
+	OnExit((*) => ( Single_instance.close()))
 	;定时监控cherryTree data文件变化
 	SetTimer(monitor_file_change, 1000)
 	;开监控db修改html导出线程

@@ -55,7 +55,7 @@ class Main_gui
 		TraySetIcon(A_ScriptDir '\icons\main.ico')
         this.tray_menue.Add("搜索`t", (*) => this.show())
         this.tray_menue.Add("编辑`t(&E)", (*) => run("*RunAs " cfg['cherry_tree_path'] " " cfg['db_path']))
-        this.tray_menue.Add("设置`t(&S)", (*) => run(A_ScriptDir "\tool\set-v2\setv2.exe"))
+        this.tray_menue.Add("设置`t(&S)", (*) => run(A_ScriptDir "\tool\set-v2\setv2.exe " DllCall("GetCurrentProcessId")))
         this.tray_menue.Add("帮助`t(&H)", (*) => run(A_ScriptDir "\README.html"))
         this.tray_menue.Add()
         this.tray_menue.Add("重启`t(&R)", (*) => Reload())

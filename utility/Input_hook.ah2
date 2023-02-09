@@ -160,7 +160,7 @@ Class Input_hook
 			show_string := '⌨' 
 		try
 		{
-			x += 20, y += 50
+			x += 20, y += 45
 			this.tt.update(show_string, x, y, show_list, high_light_index)
 		}
 	}

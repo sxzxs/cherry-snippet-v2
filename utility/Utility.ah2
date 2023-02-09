@@ -56,10 +56,17 @@ if(Single("456"))
 }
 */
 ;返回1为重复,返回0为第一个运行
-is_single_instance(flag) 
-{ 
-	DllCall("CreateMutex", "Ptr",0, "int",0, "str", "Ahk_Single_" flag)
-	return A_LastError == 0xB7 ? true : false
+class Single_instance
+{
+	static create(flag)
+	{
+		this.handle := DllCall("CreateMutex", "Ptr",0, "int",0, "str", "Ahk_Single_" flag)
+		return A_LastError == 0xB7 ? true : false
+	}
+	static close()
+	{
+		DllCall("CloseHandle", 'ptr', this.handle)
+	}
 }
 ;清理重复进程
 instance_once()
