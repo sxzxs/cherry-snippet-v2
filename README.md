@@ -35,7 +35,8 @@
 * 打开搜索界面, 默认 shift+enter
 * enter 执行代码片段
 * ctrl+enter 目标窗口输入
-* ctrl+c 跳转cherrytree相应节点
+* ctrl+e 跳转cherrytree相应节点
+* ctrl+c 复制当前文本
 
 ##### hook搜索模式
 * 打开hook界面, 默认 shift+空格
@@ -47,5 +48,5 @@
 ![cherrytree启用系统托盘](./picture/cherrytree%E8%AE%BE%E7%BD%AE.png)
 
 ### TODO
-* hook模式添加
 * 快捷键设置ui完善
+* html格式内容存入剪贴板
