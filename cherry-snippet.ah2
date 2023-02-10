@@ -70,6 +70,7 @@ main()
 	global g_webview := Webview2_preview()
 	global g_activex := ActiveX_preview()
 	global g_ih := Input_hook()
+	global sender := Zmq_send2cherry() ;通过zmq 和 cherry通讯
 
 	;设置log模式
 	logger.is_log_open := cfg['is_log_open']
@@ -98,8 +99,6 @@ main()
 	;解析数据库
 	Tree_node_data.load_db_data()
 	Main_gui.create()
-	;通过zmq 和 cherry通讯
-	sender := Zmq_send2cherry()
 
 	;注册热键
 	Hotkey("~esc", (key) => (Main_gui.Hide(key)))
