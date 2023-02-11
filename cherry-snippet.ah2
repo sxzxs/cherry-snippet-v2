@@ -66,7 +66,6 @@ main()
 	global obj_cfg := Config(A_ScriptDir "/config/settings.json")
 	global cfg := obj_cfg.config
 	global g_tr := TextRender()
-	global g_hook_rendor := TextRender()
 	global g_webview := Webview2_preview()
 	global g_activex := ActiveX_preview()
 	global g_ih := Input_hook()

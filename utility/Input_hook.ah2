@@ -62,7 +62,7 @@ Class Input_hook
 		this.update()
 		this.tt.hide()
 		if(!cfg['is_use_html_preview'])
-			g_hook_rendor.RenderOnScreen(''), g_hook_rendor.clear(), g_hook_rendor.FreeMemory()
+			g_tr.RenderOnScreen(''), g_tr.clear(), g_tr.FreeMemory()
 		g_webview.hide()
 	}
 	SacChar(ih, char)
@@ -114,7 +114,7 @@ Class Input_hook
 		if(this.tab_value.Length == 0)
 		{
 			if(!cfg['is_use_html_preview'])
-				g_hook_rendor.RenderOnScreen(''), g_hook_rendor.clear(), g_hook_rendor.FreeMemory()
+				g_tr.RenderOnScreen(''), g_tr.clear(), g_tr.FreeMemory()
 			g_webview.hide()
 			return
 		}
@@ -130,7 +130,7 @@ Class Input_hook
 		if(cfg['is_use_html_preview'] && FileExist(html_file_path))
 			g_webview.Navigate(html_file_path, this.tt.right, this.tt.top)
 		else
-			g_hook_rendor.RenderOnScreen(SubStr(preview_command, 1, 1000), 
+			g_tr.RenderOnScreen(SubStr(preview_command, 1, 1000), 
 								"x:" this.tt.right + 15 " y:" this.tt.top + 15 " color:" cfg['tooltip_back_color'], 
 								"s:" cfg['tooltip_font_size'] " j:left " "c:" cfg['tooltip_text_color'])
 
