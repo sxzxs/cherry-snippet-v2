@@ -125,8 +125,8 @@ class Tree_node_data
 				py_init := py.initials_muti_ptr(str_key)
 				this.path2py[str_key]['1'] := py_all
 				this.path2py[str_key]['2'] := py_init
-				this.path2py[str_key]['all'] := str_key py_all py_init
 			}
+			this.path2py[str_key]['all'] := str_key py_all py_init
         	if(cfg['is_use_xiaohe_double_pinyin'] == 1)
 			{
 				if(this.path2py.has(str_key) && this.path2py[str_key].has('3'))
@@ -135,8 +135,8 @@ class Tree_node_data
 				{
 					py_double := py.double_spell_muti_ptr(str_key)
 					this.path2py[str_key]['3'] := py_double
-					this.path2py[str_key]['all'] .= py_double
 				}
+				this.path2py[str_key]['all'] .= py_double
 			}
 		}
     	cfg['last_parse_time'] := A_now
