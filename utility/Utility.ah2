@@ -1,7 +1,7 @@
 ;杂项函数
 ;by Tebayaki
 ;读取进程标准输出
-ReadProcessStdOut(cmd, stdin := "", encoding := "cp0") {
+ReadProcessStdOut(cmd, stdin := "", encoding := "cp0", is_wait := true) {
     sa := Buffer(24)
     NumPut("uint", sa.Size, sa)
     NumPut("ptr", 0, "uint", 1, sa, 8)
@@ -31,14 +31,18 @@ ReadProcessStdOut(cmd, stdin := "", encoding := "cp0") {
     DllCall("CloseHandle", "ptr", NumGet(pi, 8, "ptr"))
     DllCall("CloseHandle", "ptr", hWritePipeOut)
 
+
     if stdin !== "" {
         DllCall("CloseHandle", "ptr", hReadPipeIn)
-        if !DllCall("WriteFile", "ptr", hWritePipeIn, "astr", stdin, "uint", StrPut(stdin, "cp0") - 1, "uint*", &lpNumberOfBytesWritten := 0, "ptr", 0){
+        if !DllCall("WriteFile", "ptr", hWritePipeIn, "astr", stdin, "uint", StrPut(stdin, encoding) - 1, "uint*", &lpNumberOfBytesWritten := 0, "ptr", 0){
             DllCall("CloseHandle", "ptr", hWritePipeIn)
             throw OSError()
         }
         DllCall("CloseHandle", "ptr", hWritePipeIn)
     }
+
+	if(!is_wait)
+		return
 
     stdout := ""
     while DllCall("ReadFile", "ptr", hReadPipeOut, "ptr", buf := Buffer(4096), "uint", buf.Size, "uint*", &lpNumberOfBytesRead := 0, "ptr", 0) && lpNumberOfBytesRead
@@ -99,4 +103,33 @@ RunAsAdmin()
 		}
 	}
 
+}
+
+ExecScript(Script, Params := "", AhkPath := "") 
+{
+    Name := Pipe := Call := Shell := Exec := ''
+    Name := "AHK_CQT_" . A_TickCount
+    Pipe := []
+    Loop(2) 
+	{
+        Pipe.Push(DllCall("CreateNamedPipe"
+        , "Str", "\\.\pipe\" . Name
+        , "UInt", 2, "UInt", 0
+        , "UInt", 255, "UInt", 0
+        , "UInt", 0, "UPtr", 0
+        , "UPtr", 0, "UPtr"))
+    }
+
+    If (!FileExist(AhkPath)) 
+        AhkPath := A_AhkPath
+
+    Call := AhkPath ' /CP65001 \\.\pipe\' Name
+    shell := ComObject("WScript.Shell")
+    Exec := Shell.Exec(Call . " " . Params)
+    DllCall("ConnectNamedPipe", "UPtr", Pipe[1], "UPtr", 0)
+    DllCall("CloseHandle", "UPtr", Pipe[1])
+    DllCall("ConnectNamedPipe", "UPtr", Pipe[2], "UPtr", 0)
+    FileOpen(Pipe[2], "h", "UTF-8").Write(Script)
+    DllCall("CloseHandle", "UPtr", Pipe[2])
+    Return Exec
 }

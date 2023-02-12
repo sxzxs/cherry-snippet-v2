@@ -39,6 +39,7 @@
 #include ./utility/ActiveX.ah2
 #include ./utility/Zmq_send2cherry.ah2
 #include ./utility/Input_hook.ah2
+#include ./utility/Tooltip_render.ah2
 
 #SingleInstance force
 #WinActivateForce
@@ -66,6 +67,7 @@ main()
 	global obj_cfg := Config(A_ScriptDir "/config/settings.json")
 	global cfg := obj_cfg.config
 	global g_tr := TextRender()
+	global g_tt_tr := Tooltip_render()
 	global g_webview := Webview2_preview()
 	global g_activex := ActiveX_preview()
 	global g_ih := Input_hook()
@@ -110,7 +112,7 @@ main()
 	HotIf()
 	HotIfWinActive("ahk_id " Main_gui.ui.Hwnd)
         Hotkey("enter", execute_command)
-        Hotkey("~$^c", (*) => (Main_gui.hide(), A_Clipboard := Global_data.current_select_text))
+        Hotkey("~$^c", (*) => (Main_gui.hide(), A_Clipboard := Global_data.current_select_text, g_tt_tr.render('Saved to clipboard')))
         Hotkey(cfg['key_send'], send_command)
 		Hotkey("up", (*) => Main_gui.focus_before_row())
 		Hotkey("down", (*) => Main_gui.focus_next_row())
@@ -185,14 +187,17 @@ send_command(*)
 execute_command(*)
 {
 	Main_gui.hide()
-	if(Global_data.current_select_text == '')
-		return
-    if(SubStr(Global_data.current_select_text, 1, 3) == ";v2")
-		child_process(A_ScriptDir '\interpreter\ahk-v2\AutoHotkey.exe', ['*'], true, { input: Global_data.current_select_text })
-    else if(SubStr(Global_data.current_select_text, 1, 5) == "::bat")
-		ReadProcessStdOut(Global_data.current_select_text)
-	else
-		child_process(A_ScriptDir '\interpreter\ahk-v1\AutoHotkey.exe', ['*'], true, { input: Global_data.current_select_text })
+	try
+	{
+		if(Global_data.current_select_text == '')
+			return
+		if(SubStr(Global_data.current_select_text, 1, 3) == ";v2")
+			ExecScript(Global_data.current_select_text,,A_ScriptDir '\interpreter\ahk-v2\AutoHotkey.exe')
+		else if(SubStr(Global_data.current_select_text, 1, 5) == "::bat")
+			ReadProcessStdOut(Global_data.current_select_text)
+		else
+			ExecScript(Global_data.current_select_text,,A_ScriptDir '\interpreter\ahk-v1\AutoHotkey.exe')
+	}
 }
 
 WM_LBUTTONDOWN(wParam, lParam, msg, hwnd) 
