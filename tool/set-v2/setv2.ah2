@@ -136,6 +136,7 @@ main()
             static is_show_logo := g_config["is_show_logo"]
             static is_use_xiaohe_double_pinyin := g_config["is_use_xiaohe_double_pinyin"]
             static is_use_86wubi := g_config["is_use_86wubi"]
+            static is_use_py_map := g_config["is_use_py_map"]
             static cherry_tree_path := g_config["cherry_tree_path"]
             static db_path := g_config["db_path"]
             static win_trans := g_config["win_trans"]
@@ -268,6 +269,12 @@ main()
                     _Imgui_toggle_button("是否86五笔##is_use_86wubi", &is_use_86wubi)
                     _ImGui_SameLine()
                     _ImGui_Text("86五笔")
+
+                    _Imgui_toggle_button("是否使用py预存文件##is_use_py_map", &is_use_py_map)
+                    _ImGui_SameLine()
+                    _ImGui_Text("预加载拼音文件")
+
+
                     _ImGui_InputText("python解释器路径##python_path", &python_path)
                     _ImGui_InputText("cherry tree路径##cherry_tree_path", &cherry_tree_path)
             		_ImGui_PushStyleColor(ImGuiCol_Button, "0xff18A927")
@@ -358,6 +365,7 @@ main()
                 g_config["is_show_logo"] := is_show_logo
                 g_config["is_use_xiaohe_double_pinyin"] := is_use_xiaohe_double_pinyin
                 g_config["is_use_86wubi"] := is_use_86wubi
+                g_config["is_use_py_map"] := is_use_py_map
                 g_config["cherry_tree_path"] := cherry_tree_path
                 g_config["db_path"] := db_path
 

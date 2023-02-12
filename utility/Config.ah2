@@ -10,8 +10,8 @@ class Config
 				this.path := path
 			else
 			{
-				MsgBox('Please input config path')
-				return
+				MsgBox('Config path not find! will exitapp!' path)
+				ExitApp
 			}
 		}
 		this.loadconfig(path)

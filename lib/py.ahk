@@ -4,9 +4,13 @@
 							map("chinese_convert_pinyin_allspell_muti", 0, 
 								"chinese_convert_pinyin_initials_muti", 0, 
 								"chinese_convert_double_pinyin_muti", 0,
+								"chinese_convert_pinyin_allspell_muti_ptr" , 0,
+								"chinese_convert_pinyin_initials_muti_ptr" , 0,
+								"chinese_convert_double_pinyin_muti_ptr" , 0,
 								"cpp2ahk_is_all_py_match", 0,
 								"cpp2ahk_is_all_py_init_match", 0,
-								"cpp2ahk_is_double_py_match", 0,))
+								"cpp2ahk_is_double_py_match", 0,
+								"cpp2ahk_free_ptr",0))
     static __New() => this.load_all_dll_path()
 	static out_str_size := 2048000
     static load_all_dll_path()
@@ -33,6 +37,46 @@
         }
         dllcall("SetDllDirectory", "Str", A_ScriptDir)
     }
+	static free_ptr(ptr)
+	{
+        DllCall(this.DLL_USE_MAP["cpp2ahk.dll"]["cpp2ahk_free_ptr"], "ptr", ptr)
+	}
+	static double_spell_muti_ptr(in_str)
+	{
+        ptr := DllCall(this.DLL_USE_MAP["cpp2ahk.dll"]["chinese_convert_double_pinyin_muti_ptr"], "Str", in_str, "Cdecl Ptr")
+		if(ptr != 0)
+		{
+        	rtn := StrGet(ptr,,"UTF-8")
+			this.free_ptr(ptr)
+		}
+		else
+			rtn := ""
+        return rtn
+	}
+	static initials_muti_ptr(in_str)
+	{
+	    ptr := DllCall(this.DLL_USE_MAP["cpp2ahk.dll"]["chinese_convert_pinyin_initials_muti_ptr"], "Str", in_str, "Cdecl Ptr")
+		if(ptr != 0)
+		{
+        	rtn := StrGet(ptr,,"UTF-8")
+			this.free_ptr(ptr)
+		}
+		else
+			rtn := ""
+        return rtn
+	}
+	static allspell_muti_ptr(in_str)
+	{
+	    ptr := DllCall(this.DLL_USE_MAP["cpp2ahk.dll"]["chinese_convert_pinyin_allspell_muti_ptr"], "Str", in_str, "Cdecl Ptr")
+		if(ptr != 0)
+		{
+        	rtn := StrGet(ptr,,"UTF-8")
+			this.free_ptr(ptr)
+		}
+		else
+			rtn := ""
+        return rtn
+	}
 	static is_double_spell_match(all_str, filter)
 	{
         rtn := DllCall(this.DLL_USE_MAP["cpp2ahk.dll"]["cpp2ahk_is_double_py_match"], "Str", all_str, "Str", filter, "Cdecl Int")

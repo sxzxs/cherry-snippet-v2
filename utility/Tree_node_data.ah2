@@ -3,6 +3,8 @@ class Tree_node_data
 	static node_data := []
 	static path2id := Map() ;path 到 node id到映射
 	static id_path := Map() ;id 到 [path, father_id ,text]
+	static path2py := Map() ;path map "1 all py" "2 inital py" "3 double py" "all"
+	static py_path := A_ScriptDir . "/config/py_map.bin"
 	static __New() 
 	{}
 	static load_db_data()
@@ -10,6 +12,10 @@ class Tree_node_data
 		this.node_data := []
 		this.path2id := Map() ;path 到 node id到映射
 		this.id_path := Map() ;id 到 [path, father_id ,text]
+		if(!FileExist(this.py_path))
+			FileAppend('{}', this.py_path, 'UTF-8')
+		else
+			this.path2py := JSON.parse(FileRead(this.py_path))
 		if (!FileExist(cfg['cherry_tree_path']))
 		{
 			if (FileExist(A_ScriptDir '\..\cherrytree_customization\mingw64\bin\cherrytree.exe'))
@@ -105,8 +111,40 @@ class Tree_node_data
 		{
 			this.node_data.Push(v['path'])
 			this.path2id[v['path']] := k
+
+			str_key := v['path']
+			if(this.path2py.Has(str_key))
+			{
+				py_all := this.path2py[str_key]['1']
+				py_init := this.path2py[str_key]['2']
+			}
+			else
+			{
+				this.path2py[v['path']] := Map()
+				py_all := py.allspell_muti_ptr(str_key)
+				py_init := py.initials_muti_ptr(str_key)
+				this.path2py[str_key]['1'] := py_all
+				this.path2py[str_key]['2'] := py_init
+				this.path2py[str_key]['all'] := str_key py_all py_init
+			}
+        	if(cfg['is_use_xiaohe_double_pinyin'] == 1)
+			{
+				if(this.path2py.has(str_key) && this.path2py[str_key].has('3'))
+					py_double := this.path2py[str_key]['3']
+				else
+				{
+					py_double := py.double_spell_muti_ptr(str_key)
+					this.path2py[str_key]['3'] := py_double
+					this.path2py[str_key]['all'] .= py_double
+				}
+			}
 		}
     	cfg['last_parse_time'] := A_now
+
+		str := JSON.stringify(this.path2py, 4)
+		FileDelete(this.py_path)
+		FileAppend(str, this.py_path, 'UTF-8')
+
 		obj_cfg.saveconfig()
 	}
 	static get_text_from_id(id)
