@@ -142,10 +142,19 @@ Class Input_hook
 				filter := StrUpper(filter_array[A_Index])
 				if(filter == '' || filter == ' ')
 					continue
-				if(!(InStr(str, filter) || 
-					py.is_all_spell_init_match(str ,filter) != -1 ||
-					py.is_all_spell_match(str ,filter) != -1))
-					return false
+
+				if(cfg['is_use_py_map'])
+				{
+					if(!InStr(Tree_node_data.path2py[value]['all'], filter))
+						return false
+				}
+				else
+				{
+					if(!(InStr(str, filter) || 
+						py.is_all_spell_init_match(str ,filter) != -1 ||
+						py.is_all_spell_match(str ,filter) != -1))
+						return false
+				}
 			}
 			return true
 		}
