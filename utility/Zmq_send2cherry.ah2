@@ -7,7 +7,7 @@ class Zmq_send2cherry
 		this.ctx := ctx := zmq_ctx_new()
 		this.socket := socket := zmq_socket(ctx, ZMQ_PUSH)
 		rtn := zmq_connect(socket, "tcp://localhost:19935")
-		this.cmd := child_process('cmd.exe', , , { cwd: A_Desktop, encoding: 'cp' DllCall('GetOEMCP', 'uint') })
+		this.cmd := child_process('cmd.exe', , , { cwd: A_Desktop, encoding: 'cp65001' })
 		this.cmd.onData := (s, k, l) => (logger.info(l))
 	}
 	__Delete() 
@@ -19,17 +19,19 @@ class Zmq_send2cherry
 	{
 		try
 		{
+			command := '"' cfg['cherry_tree_path'] '" "'  cfg['db_path'] '"'
 			if(IsSet(data))
 			{
 				zmq_send_string(this.socket, data)
-				this.cmd.stdin.Write('"' cfg['cherry_tree_path'] '" "'  cfg['db_path'] '"`n')
-				this.cmd.stdin.Flush()
+				;this.cmd.stdin.Write('"' cfg['cherry_tree_path'] '" "'  cfg['db_path'] '"`n')
+				;this.cmd.stdin.Flush()
 			}
 			else
 			{
-				this.cmd.stdin.Write('"' cfg['cherry_tree_path'] '" "'  cfg['db_path'] '"`n')
-				this.cmd.stdin.Flush()
+				;this.cmd.stdin.Write('"' cfg['cherry_tree_path'] '" "'  cfg['db_path'] '"`n')
+				;this.cmd.stdin.Flush()
 			}
+			Run(command)
 		}
 	}
 }

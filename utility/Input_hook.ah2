@@ -81,7 +81,14 @@ Class Input_hook
 		if(GetKeyVK(char) != 9) ;tab
 		{
 			this.list_index := 1
-			this.hook_mode_quck_search()
+			try
+			{
+				this.hook_mode_quck_search()
+			}
+			catch as e
+			{
+				logger.info(e.Message)
+			}
 		}
 	}
 	hook_mode_quck_search(is_filter := true)
