@@ -19,15 +19,16 @@ Class Webview2_preview
 
 		wv.add_NavigationCompleted(WebView2.Handler((argv*) => this.NavigationCompletedEventHandler(argv*)))
 		main.hide()
+		this.is_show := false
 	}
-	show() => this.main.show()
-	hide() => this.main.Hide()
+	show(p*) => (this.main.show(p*), this.is_show := true)
+	hide() => (this.main.Hide(), this.is_show := false)
 	Navigate(url := '', x := 100, y := 100, w := 800, h := 500)
 	{
 		this.url := url
 		this.wv.Navigate(url)
 		this.main.Title := url
-		this.main.show(Format('w{} h{} x{} y{} NoActivate', w, h, x, y))
+		this.show(Format('w{} h{} x{} y{} NoActivate', w, h, x, y))
 	}
 	NavigationCompletedEventHandler(*) 
 	{}

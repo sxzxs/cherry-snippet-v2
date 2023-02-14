@@ -140,8 +140,16 @@ class Main_gui
 		logger.info(html_file_path)
 		if(cfg['is_use_html_preview'] && !FileExist(html_file_path))
 			g_webview.hide()
+
+		;记录上次的html预览，如果不变则不刷新
+		static s_html_file_path := ''
 		if(cfg['is_use_html_preview'] && FileExist(html_file_path))
-			g_webview.Navigate(html_file_path, x - 12, y - 12)
+		{
+			logger.info(g_webview.is_show, s_html_file_path, html_file_path)
+			if(!(g_webview.is_show && s_html_file_path == html_file_path))
+				g_webview.Navigate(html_file_path, x - 12, y - 12)
+			s_html_file_path := html_file_path
+		}
 		else
 			g_tr.RenderOnScreen(SubStr(preview_command, 1, 1000), 
 								"x:" x " y:" y " color:" cfg['tooltip_back_color'], 

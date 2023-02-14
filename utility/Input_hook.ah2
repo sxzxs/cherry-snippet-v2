@@ -134,8 +134,14 @@ Class Input_hook
 
 		if(cfg['is_use_html_preview'] && !FileExist(html_file_path))
 			g_webview.hide()
+		;记录上次的html预览，如果不变则不刷新
+		static s_html_file_path := ''
 		if(cfg['is_use_html_preview'] && FileExist(html_file_path))
-			g_webview.Navigate(html_file_path, this.tt.right, this.tt.top)
+		{
+			if(!(g_webview.is_show && s_html_file_path == html_file_path))
+				g_webview.Navigate(html_file_path, this.tt.right, this.tt.top)
+			s_html_file_path := html_file_path
+		}
 		else
 			g_tr.RenderOnScreen(SubStr(preview_command, 1, 1000), 
 								"x:" this.tt.right + 15 " y:" this.tt.top + 15 " color:" cfg['tooltip_back_color'], 
