@@ -176,6 +176,11 @@ class Main_gui
 	}
 	static show(*)
 	{
+		if(cfg['auto_english'])
+		{
+			SetCapsLockState 'off'
+			switchime(0)
+		}
 		this.edit.GetPos(&x, &y, &w, &h)
 		this.list_view.GetPos(&x1, &y1, &w1, &h1)
 		w := w > w1 ? w : w1

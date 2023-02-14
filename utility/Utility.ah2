@@ -133,3 +133,12 @@ ExecScript(Script, Params := "", AhkPath := "")
     DllCall("CloseHandle", "UPtr", Pipe[2])
     Return Exec
 }
+switchime(ime := "A")
+{
+	if (ime = 1)
+		DllCall("SendMessage", 'UInt', WinActive("A"), 'UInt', 80, 'UInt', 1, 'UInt', DllCall("LoadKeyboardLayout", 'Str',"00000804", 'UInt', 1))
+	else if (ime = 0)
+		DllCall("SendMessage", 'UInt', WinActive("A"), 'UInt', 80, 'UInt', 1, 'UInt', DllCall("LoadKeyboardLayout", 'Str','', 'UInt', 1))
+	else if (ime = "A")
+		Send('#{Space}')
+}
