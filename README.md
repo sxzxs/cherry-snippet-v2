@@ -21,7 +21,7 @@
 ### 依赖环境
 |环境|版本|
 |-|-|
-|系统|开启html预览需要**win10**或者安装 **webview2 runtime**|
+|系统|开启html预览需要**win10**或者安装 **[webview2 runtime](https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/3c9f7ac6-fb0a-4eb7-b1fd-44c57613a3f5/MicrosoftEdgeWebView2RuntimeInstallerX64.exe)**|
 |ahk 版本| [autohotkey v2H](https://github.com/thqby/AutoHotkey_H/releases)|
 |cherryTree.exe|[cherryTee定制 百度网盘](https://pan.baidu.com/s/1uDmzAsB_tgwexUccUjM0uA?pwd=bet2) 提取码：bet2 <br>  [cherryTree定制 蓝奏云](https://wwob.lanzoum.com/iWmdr0mpjnfa) 密码:1bkm
 |dx| [dx11 依赖下载](https://zhangyue667.lanzouh.com/DirectXRepairEnhanced)|
