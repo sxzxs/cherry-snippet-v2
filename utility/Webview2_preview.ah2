@@ -29,6 +29,7 @@ Class Webview2_preview
 		this.wv.Navigate(url)
 		this.main.Title := url
 		this.show(Format('w{} h{} x{} y{} NoActivate', w, h, x, y))
+		WinSetRegion(Format('0-0 W{} H{} R15-15', w, h), this.main.Hwnd)
 	}
 	NavigationCompletedEventHandler(*) 
 	{}

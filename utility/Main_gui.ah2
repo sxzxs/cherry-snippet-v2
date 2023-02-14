@@ -191,6 +191,7 @@ class Main_gui
 		this.list_view.GetPos(&x1, &y1, &w1, &h1)
 		this.list_view.Modify(1, "Select Focus Vis")
 		this.ui.Show("w" w " h" h + h1 " x" cfg['win_x'] " y" cfg['win_y'])
+		WinSetRegion(Format('0-0 W{} H{} R15-15', w, h + h1), this.ui.Hwnd)
 	}
 	static hide(*) => (logger.info("hide"), this.ui.Hide(), g_tr.RenderOnScreen(''), g_tr.clear(), g_tr.FreeMemory(), g_activex.hide(), g_webview.hide())
 	static auto_change_listview_height()
