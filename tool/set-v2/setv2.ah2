@@ -112,6 +112,7 @@ main()
             static win_search_box_text_color := _Imgui_bgr2rgb(Integer(g_config["win_search_box_text_color"]))
 
             static win_search_box_font_size := g_config["win_search_box_font_size"]
+            static win_search_box_height := g_config["win_search_box_height"]
             ;list
             static win_list_back_color := _Imgui_bgr2rgb(Integer(g_config["win_list_back_color"]))
 
@@ -165,6 +166,7 @@ main()
 
                     _ImGui_InputText("搜索框宽度##win_w", &win_w)
                     _ImGui_InputText("搜索框字体大小##win_search_box_font_size", &win_search_box_font_size)
+                    _ImGui_InputText("搜索框高度##win_search_box_height", &win_search_box_height)
                     _ImGui_EndTabItem()
                 }
 
@@ -344,6 +346,7 @@ main()
 
                 g_config["win_search_box_text_color"] := Format("0x{:06X}", _Imgui_bgr2rgb(win_search_box_text_color & 0xffffff))
                 g_config["win_search_box_font_size"] := win_search_box_font_size
+                g_config["win_search_box_height"] := win_search_box_height
                 g_config["win_list_back_color"] := Format("0x{:06X}", _Imgui_bgr2rgb(win_list_back_color & 0xffffff))
                 g_config["win_list_text_color"] := Format("0x{:06X}", _Imgui_bgr2rgb(win_list_text_color & 0xffffff))
                 g_config["win_list_focus_back_color"] := Format("0x{:06X}", _Imgui_bgr2rgb(win_list_focus_back_color & 0xffffff))

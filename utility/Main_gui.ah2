@@ -15,7 +15,8 @@ class Main_gui
 		ui.BackColor := cfg['win_list_back_color']
 
 		width := 'w' cfg['win_w']
-		this.edit := ui.Add('Edit', width ' x0 y0 h40 vgui_edit -Multi -E0x200 ' , '')
+		height := 'h' cfg['win_search_box_height']
+		this.edit := ui.Add('Edit', width ' ' height ' x0 y0 vgui_edit -Multi -E0x200 ' , '')
 		this.edit.opt('Background' cfg['win_search_box_back_color'])
 		this.edit.opt('w' cfg['win_w'])
 		this.edit.SetFont("c" cfg['win_search_box_text_color'])
@@ -147,7 +148,7 @@ class Main_gui
 		{
 			logger.info(g_webview.is_show, s_html_file_path, html_file_path)
 			if(!(g_webview.is_show && s_html_file_path == html_file_path))
-				g_webview.Navigate(html_file_path, x - 12, y - 12)
+				g_webview.Navigate(html_file_path, x - 14, y - 12)
 			s_html_file_path := html_file_path
 		}
 		else
@@ -181,6 +182,8 @@ class Main_gui
 			SetCapsLockState 'off'
 			switchime(0)
 		}
+		this.edit.Opt('-redraw')
+		this.list_view.Opt('-redraw')
 		this.edit.GetPos(&x, &y, &w, &h)
 		this.list_view.GetPos(&x1, &y1, &w1, &h1)
 		w := w > w1 ? w : w1
@@ -190,8 +193,11 @@ class Main_gui
 		this.edit.GetPos(&x, &y, &w, &h)
 		this.list_view.GetPos(&x1, &y1, &w1, &h1)
 		this.list_view.Modify(1, "Select Focus Vis")
+		this.edit.Opt('redraw')
+		this.list_view.Opt('redraw')
 		this.ui.Show("w" w " h" h + h1 " x" cfg['win_x'] " y" cfg['win_y'])
 		WinSetRegion(Format('0-0 W{} H{} R10-10', w, h + h1), this.ui.Hwnd)
+		WinSetTransparent(cfg['win_trans'], this.ui.Hwnd)
 	}
 	static hide(*) => (logger.info("hide"), this.ui.Hide(), g_tr.RenderOnScreen(''), g_tr.clear(), g_tr.FreeMemory(), g_activex.hide(), g_webview.hide())
 	static auto_change_listview_height()
