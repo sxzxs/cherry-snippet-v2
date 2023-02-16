@@ -45,15 +45,16 @@ monitor_html_change()
 						MsgBox('cherrytree.exe文件不存在,请在设置中配置!! ' main_cfg['cherry_tree_path']), ExitApp
 					if(!FileExist(main_cfg['db_path']))
 						MsgBox('db.ctb文件不存在,请在设置中配置!!' main_cfg['db_path']), ExitApp
-					if(!FileExist(main_cfg['html_path'] '\data.ctb_HTML\res\'))
+					if(!FileExist(main_cfg['html_path']))
 					{
 						try
 						{
-							DirCreate(main_cfg['html_path'] '\data.ctb_HTML\res\')
+							DirCreate(main_cfg['html_path'])
 						}
 						catch as e
 						{
-							MsgBox('html export path error:' main_cfg['html_path']), ExitApp
+							MsgBox('html export path error will exit:' main_cfg['html_path'])
+							ExitApp
 						}
 					}
 					cfg['last_html_export_time'] := A_Now

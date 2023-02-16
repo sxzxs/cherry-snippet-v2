@@ -80,20 +80,16 @@ main()
 
 	;初始化
 	;创建目录
-	if(!FileExist(cfg['html_path'] '\data.ctb_HTML\res\'))
+	if(!FileExist(cfg['html_path']))
 	{
 		try
 		{
-			DirCreate(cfg['html_path'] '\data.ctb_HTML\res\')
+			DirCreate(cfg['html_path'])
 		}
 		catch as e
 		{
-			MsgBox('创建html导出目录失败: ' cfg['html_path'] '`n 将尝试在' A_MyDocuments '创建')
+			MsgBox('创建html导出目录失败: ' cfg['html_path'] '`n 将尝试在' A_MyDocuments '导出')
 			cfg['html_path'] := A_MyDocuments
-			try
-			{
-				DirCreate(cfg['html_path'] '\data.ctb_HTML\res\')
-			}
 			obj_cfg.saveconfig()
 		}
 	}
@@ -134,10 +130,14 @@ main()
 
 copy_css2res()
 {
-	try
+	logger.info(cfg['html_path'] '\data.ctb_HTML\res\')
+	if(FileExist(A_ScriptDir '\styles4.css') && !FileExist(cfg['html_path'] '\data.ctb_HTML\res\styles4.css'))
 	{
-		if(FileExist(A_ScriptDir '\styles4.css') && !FileExist(cfg['html_path'] '\data.ctb_HTML\res\styles4.css'))
-		FileCopy A_ScriptDir '\styles4.css', cfg['html_path'] '\data.ctb_HTML\res\', 1
+		try
+		{
+			DirCreate(cfg['html_path'] '\data.ctb_HTML\res\')
+			FileCopy A_ScriptDir '\styles4.css', cfg['html_path'] '\data.ctb_HTML\res\', 1
+		}
 	}
 }
 
