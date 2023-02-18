@@ -45,6 +45,18 @@
 #WinActivateForce
 #ErrorStdOut
 #Warn All, Off
+#MaxThreads 255
+#MaxThreadsBuffer True
+DetectHiddenWindows true
+SetWinDelay -1
+SetControlDelay -1
+KeyHistory 0
+ListLines false
+SetTitleMatchMode 'fast'
+A_MaxHotkeysPerInterval := 99000000
+A_HotkeyInterval := 99000000
+
+
 main()
 main()
 {
@@ -54,7 +66,6 @@ main()
 		ExitApp
 	}
 
-	DetectHiddenWindows true
 	;清理重复进程
 	instance_once()
 	;检查是否有重复进程运行

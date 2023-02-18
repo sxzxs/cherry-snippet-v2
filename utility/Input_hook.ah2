@@ -46,6 +46,7 @@ Class Input_hook
 		this.is_hook_mode := true
 		this.update()
 		this.tt.show()
+		WinSetAlwaysOnTop(true, g_webview.main.Hwnd)
 	}
 	clear_value()
 	{
@@ -140,7 +141,7 @@ Class Input_hook
 		{
 			if(!(g_webview.is_show && s_html_file_path == html_file_path))
 				g_webview.Navigate(html_file_path, this.tt.right, this.tt.top)
-			WinSetAlwaysOnTop(true, g_webview.main.Hwnd)
+			WinMove(this.tt.right, this.tt.top,,, g_webview.main.Hwnd)
 			s_html_file_path := html_file_path
 		}
 		else
