@@ -140,6 +140,7 @@ Class Input_hook
 		{
 			if(!(g_webview.is_show && s_html_file_path == html_file_path))
 				g_webview.Navigate(html_file_path, this.tt.right, this.tt.top)
+			WinSetAlwaysOnTop(true, g_webview.main.Hwnd)
 			s_html_file_path := html_file_path
 		}
 		else
@@ -240,7 +241,7 @@ class text_tab
 		this.g.hide()
 	}
 	hide() => this.g.hide()
-	show(argv*) => this.g.Show(argv*)
+	show(argv*) => (this.g.Show(argv*), WinSetAlwaysOnTop(true, this.g.Hwnd))
 	update(s, x, y, tab_list := [], high_light_index := 1)
 	{
 		g := this.g

@@ -149,6 +149,7 @@ class Main_gui
 			logger.info(g_webview.is_show, s_html_file_path, html_file_path)
 			if(!(g_webview.is_show && s_html_file_path == html_file_path))
 				g_webview.Navigate(html_file_path, x - 14, y - 12)
+			WinSetAlwaysOnTop(true, g_webview.main.Hwnd)
 			s_html_file_path := html_file_path
 		}
 		else

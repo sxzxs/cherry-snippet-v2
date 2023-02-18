@@ -33,14 +33,14 @@
 ### 使用说明
 ##### 普通搜索模式
 * 打开搜索界面, 默认 shift+enter
-* enter 执行代码片段
-* ctrl+enter 目标窗口输入
-* ctrl+e 跳转cherrytree相应节点
-* ctrl+c 复制当前文本
+* 执行代码片段, 默认 enter
+* 当前代码片段输入到目标窗口, 默认 ctrl+enter 
+* 用cherrytree编辑当前代码片段, 默认 ctrl+e 
+* 复制当前代码片段到系统剪切板, 默认 ctrl+c 
 
 ##### hook搜索模式
 * 打开hook界面, 默认 shift+空格
-* enter 目标窗口输入
+* 当前代码片段输入到目标窗口, 默认 enter 
 
 #### 注意事项
 * .ctb文件和导出路径一般不要设置到C盘(未知权限问题)
