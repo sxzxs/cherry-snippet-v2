@@ -31,6 +31,7 @@
 2. 第一次执行会提示选择cherryTree.exe和data.ctb的目录(cherrytree_0.99.51.0_win64_portable\mingw64\bin\cherrytree.exe)
 
 ### 使用说明
+[按键列表](https://wyagd001.github.io/v2/docs/KeyList.htm#general)
 ##### 普通搜索模式
 * 打开搜索界面, 默认 shift+enter
 * 执行代码片段, 默认 enter

@@ -112,6 +112,7 @@ main()
 	Hotkey("~esc", (key) => (Main_gui.Hide(key)))
 	Hotkey(cfg['key_open_search_box'], (key) => (copy_css2res(), Main_gui.edit.value := '',Main_gui.list_view.Delete(), Main_gui.show(key)))
 	Hotkey(cfg['hook_open'], (key) => (copy_css2res(), g_ih.start()))
+	Hotkey(cfg['key_open_editor'], (key) => (sender.send_command()))
 
 	HotIf(ObjBindMethod(g_ih, 'is_current_hook_mode'))
         Hotkey("tab", ObjBindMethod(g_ih, "on_tab", '+'))

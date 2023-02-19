@@ -72,12 +72,45 @@ class Main_gui
 		this.tray_menue.SetIcon('重启`t(&R)', A_ScriptDir '\icons\重启.ico')
 		this.tray_menue.SetIcon('暂停`t(&P)', A_ScriptDir '\icons\暂停.ico')
 		this.tray_menue.SetIcon('退出`t(&X)', A_ScriptDir '\icons\退出.ico')
+
+		this.rmenu := rmenu := Menu()
+        this.rmenu.Add("编辑`t(&E)", (*) => (Main_gui.hide(), sender.send_command(Global_data.current_select_node_id)))
+        this.rmenu.Add("复制`t(&C)", (*) => (Main_gui.hide(), A_Clipboard := Global_data.current_select_text, g_tt_tr.render('Saved to clipboard')))
+        this.rmenu.Add("发送`t(&D)", (*) => send_command())
+        this.rmenu.Add("运行`t(&U)", (*) => execute_command())
+		command := A_AhkPath ' /script ' A_ScriptDir "\tool\set-v2\setv2.ah2 " DllCall("GetCurrentProcessId")
+        this.rmenu.Add("设置`t(&S)", (*) => run(command))
+        this.rmenu.Add("帮助`t(&H)", (*) => run(A_ScriptDir "\README.html"))
+        this.rmenu.Add()
+        this.rmenu.Add("重启`t(&R)", (*) => Reload())
+        this.rmenu.Add("退出`t(&X)", (*) => ExitApp())
+        this.rmenu.Default := "1&"
+		this.rmenu.SetIcon('编辑`t(&E)', A_ScriptDir '\icons\编辑.ico')
+		this.rmenu.SetIcon('复制`t(&C)', A_ScriptDir '\icons\复制.ico')
+		this.rmenu.SetIcon('发送`t(&D)', A_ScriptDir '\icons\发送.ico')
+		this.rmenu.SetIcon('运行`t(&U)', A_ScriptDir '\icons\运行.ico')
+		this.rmenu.SetIcon('设置`t(&S)', A_ScriptDir '\icons\设置.ico')
+		this.rmenu.SetIcon('帮助`t(&H)', A_ScriptDir '\icons\帮助.ico')
+		this.rmenu.SetIcon('重启`t(&R)', A_ScriptDir '\icons\重启.ico')
+		this.rmenu.SetIcon('退出`t(&X)', A_ScriptDir '\icons\退出.ico')
 	}
 	static create_event()
 	{
 		LV := this.list_view
 		LV.OnEvent("ItemSelect", (argv*) => this.one_select_item_change(argv*))
 		this.edit.OnEvent("Change", (argv*) => this.filter(argv*))    ; 文本变动事件
+		;注册右键消息
+		OnMessage(0x0204, ObjBindMethod(this, 'WM_RBUTTON'))
+	}
+	static WM_RBUTTON(wParam, lParam, msg, hwnd)
+	{
+		X := lParam & 0xFFFF
+		Y := lParam >> 16
+		Control := ""
+		thisGui := GuiFromHwnd(hwnd)
+		thisGuiControl := GuiCtrlFromHwnd(hwnd)
+		this.rmenu.show()
+		return 0
 	}
 	static filter(argv*)
 	{
@@ -99,7 +132,6 @@ class Main_gui
 		}
 		this.list_view.Modify(1, "Select Focus Vis"), this.one_select_item_change()
 		this.list_view.ModifyCol(1, Number(cfg['win_w']) - 25)
-        this.list_view.Opt("Redraw")
 		this.show()
 		local_match(filter_array, value)
 		{
@@ -184,7 +216,6 @@ class Main_gui
 			switchime(0)
 		}
 		this.edit.Opt('-redraw')
-		this.list_view.Opt('-redraw')
 		this.edit.GetPos(&x, &y, &w, &h)
 		this.list_view.GetPos(&x1, &y1, &w1, &h1)
 		w := w > w1 ? w : w1
