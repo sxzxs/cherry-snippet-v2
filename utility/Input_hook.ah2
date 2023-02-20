@@ -411,7 +411,10 @@ class DirectGUI extends Gui {
 	{
 		super.Show(' NoActivate')
 	}
-	update(x?, y?, w?, h?, alpha?) => DllCall('UpdateLayeredWindow', 'ptr', this.Hwnd, 'ptr', 0, 'int64*', (x ?? this.x) | (y ?? this.y) << 32, 'int64*', (w ?? this.w) | (h ?? this.h) << 32, 'ptr', this.hdc, 'int64*', 0, 'uint', 0, 'uint*', (alpha ?? this.alpha) << 16 | 1 << 24, 'uint', 2)
+	update(x?, y?, w?, h?, alpha?) 
+	{
+		UpdateLayeredWindow(this.Hwnd, this.hdc, x, y, w, h)
+	}
 }
 
 /*
