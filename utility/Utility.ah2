@@ -84,26 +84,6 @@ instance_once()
 			ProcessWaitClose(PID)
     }
 }
-RunAsAdmin()
-{
-	full_command_line := DllCall("GetCommandLine", "str")
-	if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
-	{
-		try
-		{
-			if A_IsCompiled
-				Run '*RunAs "' A_ScriptFullPath '" /restart'
-			else
-				Run '*RunAs "' A_AhkPath '" /restart "' A_ScriptFullPath '"'
-		}
-		catch as e
-		{
-			MsgBox('尝试已管理器重启失败,退出!! ' e.Message)
-			ExitApp
-		}
-	}
-
-}
 
 ExecScript(Script, Params := "", AhkPath := "") 
 {
@@ -141,4 +121,13 @@ switchime(ime := "A")
 		DllCall("SendMessage", 'UInt', WinActive("A"), 'UInt', 80, 'UInt', 1, 'UInt', DllCall("LoadKeyboardLayout", 'Str','', 'UInt', 1))
 	else if (ime = "A")
 		Send('#{Space}')
+}
+
+RunAsAdmin() 
+{
+    if !A_IsAdmin && !(DllCall("GetCommandLine", "str") ~= " /restart(?!\S)") 
+	{
+        try Run('*RunAs "' (A_IsCompiled ? A_ScriptFullPath '" /restart' : A_AhkPath '" /restart "' A_ScriptFullPath '"'))
+        ExitApp
+    }
 }

@@ -60,14 +60,9 @@ A_HotkeyInterval := 99000000
 main()
 main()
 {
-	if(!A_IsAdmin)
-	{
-		MsgBox("请已管理员模式重启!!")
-		ExitApp
-	}
+	RunAsAdmin() ;管理员模式运行
+	instance_once() ;清理重复进程
 
-	;清理重复进程
-	instance_once()
 	;检查是否有重复进程运行
 	if(Single_instance.create('cherry-snippet'))
 	{
@@ -89,8 +84,7 @@ main()
 	logger.is_out_file := cfg['is_out_file']
 	logger.is_use_editor := cfg['is_use_editor']
 
-	;初始化
-	;创建目录
+	;初始化、创建目录
 	if(!FileExist(cfg['html_path']))
 	{
 		try
