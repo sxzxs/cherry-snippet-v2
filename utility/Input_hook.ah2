@@ -242,15 +242,15 @@ class text_tab
 		this.g.hide()
 	}
 	hide() => this.g.hide()
-	show(argv*) => (this.g.Show(argv*), WinSetAlwaysOnTop(true, this.g.Hwnd))
+	show(argv*) => (this.g.only_show(argv*), WinSetAlwaysOnTop(true, this.g.Hwnd))
+
 	update(s, x, y, tab_list := [], high_light_index := 1)
 	{
 		g := this.g
 		g.render.BeginDraw()
 		g.render.Clear()
 
-		
-		monitorinfo := {}
+ 		monitorinfo := {}
 		If (MonInfo := MDMF_GetInfo(MDMF_FromPoint(&x, &y)))
 		{
 			monitorinfo.left := MonInfo.left ,monitorinfo.top := MonInfo.top
@@ -312,9 +312,15 @@ class text_tab
 				rectangle_range.top := monitorinfo.top
 			rectangle_range.Bottom := rectangle_range.top + rectangle_range.height
 		}
-		x := rectangle_range.left + 10, y := rectangle_range.top + 10
 		this.left := rectangle_range.left, this.right := rectangle_range.right
 		this.top := rectangle_range.top, this.Bottom := rectangle_range.Bottom
+		;切换到窗口坐标
+		rectangle_range.left := 0, rectangle_range.top := 0
+		rectangle_range.Bottom := rectangle_range.top + rectangle_range.height
+		rectangle_range.right := rectangle_range.left + rectangle_range.width
+
+		;x y 表示接下来每个元素的起始x y坐标
+		x := rectangle_range.left + 10, y := rectangle_range.top + 10
 
 		if(this.img != '')
 		{
@@ -336,10 +342,8 @@ class text_tab
 		g.render.FillRoundedRectangle(direct2d_struct('D2D1_ROUNDED_RECT', , {rect : rectangle_range, radiusX : 10, radiusY : 10}), this.pBrush_back)
 		g.render.DrawTextLayout(direct2d_struct('D2D1_POINT_2F', ,{ x : x, y : y}), t, this.pBrush_input_text_color)
 		g.render.DrawLine(direct2d_struct('D2D1_POINT_2F', ,{ x : x, y : y + m['height'] + 10}), 
-							direct2d_struct('D2D1_POINT_2F', ,{ x : this.right - 10, y : y + m['height'] + 10}),
+							direct2d_struct('D2D1_POINT_2F', ,{ x : rectangle_range.right - 10, y : y + m['height'] + 10}),
 							this.pBrush_splite_line_color, 5, 0)
-
-
 
 		;draw list
 		x := x, y := y + m['height'] + 10 + 10
@@ -364,7 +368,7 @@ class text_tab
 		}
 
 		g.render.EndDraw()
-		g.update()
+		g.update(Integer(this.left), Integer(this.top), Integer(this.right - this.left), Integer(this.Bottom - this.top))
 	}
 
 	rgb2float(x)
@@ -402,6 +406,10 @@ class DirectGUI extends Gui {
 		super.Show('w' w ' h' h ' ' options ' NoActivate')
 		this.update(this.x := x ?? (SysGet(78) - w) >> 1, this.y := y ?? (SysGet(79) - h) >> 1,
 			this.w := w, this.h := h, this.alpha := alpha)
+	}
+	only_show()
+	{
+		super.Show(' NoActivate')
 	}
 	update(x?, y?, w?, h?, alpha?) => DllCall('UpdateLayeredWindow', 'ptr', this.Hwnd, 'ptr', 0, 'int64*', (x ?? this.x) | (y ?? this.y) << 32, 'int64*', (w ?? this.w) | (h ?? this.h) << 32, 'ptr', this.hdc, 'int64*', 0, 'uint', 0, 'uint*', (alpha ?? this.alpha) << 16 | 1 << 24, 'uint', 2)
 }
