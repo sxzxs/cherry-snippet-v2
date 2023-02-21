@@ -5,6 +5,8 @@ class Main_gui
 		this.cherry_icon_list := ['cherry_black', 'cherry_blue', 'cherry_cyan', 'cherry_green', 'cherry_orange_dark',
 									'cherry_orange', 'cherry_purple', 'cherry_red', 'cherry_sherbert', 'cherry_grey.png',
 									'cherry_yellow']
+		this.icons_name2ilindex := Map()
+		this.image_list := ''
 	}
 	static __Delete() => 1
 	static create()
@@ -40,14 +42,40 @@ class Main_gui
 		;已提交issue, https://www.autohotkey.com/boards/viewtopic.php?f=83&t=93922
 		;LV.SetBkImage('G:\我的AHK程序\我的工程\cherry-snippet\cherry-snippet-v2\icons\龙.png', 70)
 
-		image_list := IL_Create(10)
-		LV.SetImageList(image_list)
-
-		for k,v in this.cherry_icon_list
-			IL_Add(image_list, A_ScriptDir '\icons\' v '.png')
+		this.load_tree_icon()
 
 		this.add_tray_icon()
 		this.create_event()
+	}
+	static load_tree_icon()
+	{
+		Critical 'on'
+		if(this.image_list != '')
+			IL_Destroy(this.image_list)
+		this.image_list := image_list := IL_Create(10, 5, false)
+		this.list_view.SetImageList(image_list)
+		for k,v in this.cherry_icon_list
+		{
+			icon_index := IL_Add(image_list, A_ScriptDir '\icons\' v '.png')
+			this.icons_name2ilindex[v] := icon_index
+		}
+		loop files A_ScriptDir '\icons\tree\*'
+		{
+			raw_file_path := A_LoopFileFullPath
+            ext := SubStr(A_LoopFileFullPath, -4)    ;对原文件类型进行判断
+			if(ext == '.lnk' && FileExist(A_LoopFileFullPath))
+			{
+                FileGetShortcut(A_LoopFileFullPath, &raw_file_path)
+			}
+			icon_index := IL_Add(image_list, raw_file_path)
+			if(icon_index != 0)
+			{
+				pos := InStr(A_LoopFileName, '.')
+				new := SubStr(A_LoopFileName, 1,  pos - 1)
+				this.icons_name2ilindex[new] := icon_index
+			}
+		}
+		Critical 'off'
 	}
 	static add_tray_icon()
 	{
@@ -127,7 +155,13 @@ class Main_gui
 		this.list_view.Delete()
 		for k,v in result
 		{
+			name := Tree_node_data.id_path[Tree_node_data.path2id[v]]["name"]
 			icon_index := Mod(A_Index, 10) + 1
+			if(name != '')
+			{
+				if(this.icons_name2ilindex.Has(name))
+					icon_index := this.icons_name2ilindex[name]
+			}
 			this.list_view.Add("Icon" icon_index, v)
 		}
 		this.list_view.Modify(1, "Select Focus Vis"), this.one_select_item_change()

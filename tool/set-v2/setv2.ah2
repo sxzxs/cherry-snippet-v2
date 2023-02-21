@@ -12,15 +12,11 @@ loadconfig(&g_config, g_config_path)
 logger.is_log_open := false
 logger.info(g_config)
 gif_tim := 0
-gif_tim_shandian := 0
-g_is_shandian := false
 main()
 main()
 {
     static no_menu := false
     global gif_tim
-    global g_is_shandian
-    global gif_tim_shandian
     hwnd := _ImGui_GUICreate("AHK ImGui", 1, 1, -100, -100, 0, 0x80)
     WinShow(hwnd)
     WinSetAlwaysOnTop( 1,hwnd)
@@ -37,15 +33,11 @@ main()
     static help_img_id := _ImGui_ImageFromFile(A_ScriptDir "\..\..\Icons\帮助.png")
     static set_img_id := _ImGui_ImageFromFile(A_ScriptDir "\..\..\Icons\设置.png")
     _Imgui_imgui_stbi__load_gif(A_ScriptDir "\..\..\Icons\gg.gif", &out_srv_array := [], &length := 0, &out_gif_with := 0, &out_gif_height := 0, &out_gif_delay := 0)
-    _Imgui_imgui_stbi__load_gif(A_ScriptDir "\..\..\Icons\闪电五连鞭.gif", &out_srv_array_shandian := [], &length_shandian := 0, &out_gif_with_shandian := 0, &out_gif_height_shandian := 0, &out_gif_delay_shandian := 0)
     if(out_gif_delay == 0) 
         out_gif_delay := 200
-    if(out_gif_delay_shandian == 0) 
-        out_gif_delay_shandian := 200
     gif_tim := Gif_timmer(length, out_gif_delay)
     gif_tim.Start()
 
-    gif_tim_shandian := Gif_timmer(length_shandian, out_gif_delay_shandian)
     OnExit(exit_handle)
     static colum_index := 1
     while(_ImGui_PeekMsg())
@@ -81,16 +73,8 @@ main()
             mx := p[1] + s[1] / 2
             my := p[2] + s[2] / 2
             short := s[1] > s[2] ? s[2] : s[1]
-            if(!g_is_shandian)
-            {
-                _ImDraw_SetDrawList(window_draw_list)
-                _ImDraw_AddImage(out_srv_array[gif_tim.count], mx - short / 2, my - short / 2, mx + short / 2, my + short / 2)
-            }
-            else
-            {
-                _ImDraw_SetDrawList(window_foreground_draw_list)
-                _ImDraw_AddImage(out_srv_array_shandian[gif_tim_shandian.count], mx - short / 2, my - short / 2, mx + short / 2, my + short / 2)
-            }
+			_ImDraw_SetDrawList(window_draw_list)
+			_ImDraw_AddImage(out_srv_array[gif_tim.count], mx - short / 2, my - short / 2, mx + short / 2, my + short / 2)
 
             ;添加代码 =====================================
 
@@ -388,9 +372,6 @@ main()
 
 
                 saveconfig(g_config, g_config_path)
-                g_is_shandian := false
-                SetTimer(()=> g_is_shandian := false, -2000)
-                gif_tim_shandian.Start()
 				if(IsSet(main_script_pid))
 				{
 					PostMessage(0x111, 65303,,, 'ahk_pid ' main_script_pid)
@@ -479,7 +460,6 @@ saveconfig(config, json_path)
 exit_handle(ExitReason, ExitCode)
 {
     gif_tim.Stop()
-    gif_tim_shandian.stop()
 }
 ; 一个记录秒数的示例类...
 class Gif_timmer 

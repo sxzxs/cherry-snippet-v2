@@ -1828,7 +1828,7 @@ class TextRender {
 
             ; WM_DISPLAYCHANGE calls UpdateMemory() via Draw().
             if (uMsg = 0x7E) {
-               self.RenderAgain()
+               ;self.RenderAgain()
             }
 
             ; Match window messages to Rainmeter event names.

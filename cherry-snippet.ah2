@@ -56,7 +56,6 @@ SetTitleMatchMode 'fast'
 A_MaxHotkeysPerInterval := 99000000
 A_HotkeyInterval := 99000000
 
-
 main()
 main()
 {
@@ -169,6 +168,7 @@ monitor_file_change()
 				{
 					logger.info('start parse db...')
 					Tree_node_data.load_db_data()
+					Main_gui.load_tree_icon()
 					logger.info('parse db end')
 				}
 			}

@@ -2,13 +2,14 @@ class Tree_node_data
 {
 	static node_data := []
 	static path2id := Map() ;path 到 node id到映射
-	static id_path := Map() ;id 到 [path, father_id ,text]
+	static id_path := Map() ;id 到 [path, father_id ,text, tag]
 	static path2py := Map() ;path map "1 all py" "2 inital py" "3 double py" "all"
 	static py_path := A_ScriptDir . "/config/py_map.bin"
 	static __New() 
 	{}
 	static load_db_data()
 	{
+		Critical 'on'
 		this.node_data := []
 		this.path2id := Map() ;path 到 node id到映射
 		this.id_path := Map() ;id 到 [path, father_id ,text]
@@ -81,9 +82,11 @@ class Tree_node_data
 		id_path := map()
 		for k,v in map_father
 		{
+			path_string_file := path_string := obj_sql_node.map_node[k][2]
+			tag := obj_sql_node.map_node[k][5]
 			id_path[k] := map()
 			id_path[k]["father_id"] := []
-			path_string_file := path_string := obj_sql_node.map_node[k][2]
+			id_path[k]["name"] := path_string
 			loop
 			{
 				if(map_father.Has(v))
@@ -101,6 +104,7 @@ class Tree_node_data
 					path_string_file := StrReplace(path_string_file, A_Space, "_")
 					path_string_file := StrReplace(path_string_file, "/", "-")
 					id_path[k]["path_file"] := path_string_file "_" k
+					id_path[k]["tag"] := tag
 					break
 				}
 				v := map_father[v]
@@ -146,6 +150,7 @@ class Tree_node_data
 		FileAppend(str, this.py_path, 'UTF-8')
 
 		obj_cfg.saveconfig()
+		Critical 'off'
 	}
 	static get_text_from_id(id)
 	{
