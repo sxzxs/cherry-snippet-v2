@@ -101,6 +101,9 @@ Class Input_hook
 			{
 				if(this.current_hook_string == '')
 					break
+				is_show := Tree_node_data.id_path[Tree_node_data.path2id[v]]["is_show"]
+				if(!is_show)
+					continue
 				if(local_match(StrSplit(this.current_hook_string, ' '), v))
 					this.tab_value.Push(v)
 			}

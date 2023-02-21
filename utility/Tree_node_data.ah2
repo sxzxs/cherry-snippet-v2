@@ -2,7 +2,7 @@ class Tree_node_data
 {
 	static node_data := []
 	static path2id := Map() ;path 到 node id到映射
-	static id_path := Map() ;id 到 [path, father_id ,text, tag]
+	static id_path := Map() ;id 到 [path, father_id ,text, tag, icon, is_show]
 	static path2py := Map() ;path map "1 all py" "2 inital py" "3 double py" "all"
 	static py_path := A_ScriptDir . "/config/py_map.bin"
 	static __New() 
@@ -87,6 +87,20 @@ class Tree_node_data
 			id_path[k] := map()
 			id_path[k]["father_id"] := []
 			id_path[k]["name"] := path_string
+			id_path[k]['icon'] := ''
+			id_path[k]['is_show'] := true
+			is_get_icons := false ;标记是否设置icons,或者最近的父节点设置icons
+			is_get_show := false
+			if(InStr(tag, 'icon:'))
+			{
+				is_get_icons := true
+				id_path[k]['icon'] := SubStr(tag, InStr(tag, 'icon:') + 5)
+			}
+			if(InStr(tag, '屏蔽'))
+			{
+				is_get_show := true
+				id_path[k]['is_show'] := false
+			}
 			loop
 			{
 				if(map_father.Has(v))
@@ -94,6 +108,25 @@ class Tree_node_data
 					path_string := obj_sql_node.map_node[v][2] "-" path_string
 					path_string_file := obj_sql_node.map_node[v][2] "--" path_string_file
 					id_path[k]["father_id"].Push(v)
+
+					if(!is_get_icons)
+					{
+						f_tag := obj_sql_node.map_node[v][5]
+						if(InStr(f_tag, 'icon:'))
+						{
+							is_get_icons := true
+							id_path[k]['icon'] := SubStr(f_tag, InStr(f_tag, 'icon:') + 5)
+						}
+					}
+					if(!is_get_show)
+					{
+						f_tag := obj_sql_node.map_node[v][5]
+						if(InStr(f_tag, '屏蔽'))
+						{
+							is_get_icons := true
+							id_path[k]['is_show'] := false
+						}
+					}
 				}
 				else
 				{
