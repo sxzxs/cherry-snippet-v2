@@ -161,11 +161,9 @@ class Main_gui
 			name := Tree_node_data.id_path[Tree_node_data.path2id[v]]["name"]
 			icon := Tree_node_data.id_path[Tree_node_data.path2id[v]]["icon"]
 			icon_index := Mod(A_Index, 10) + 1
-			if(name != '')
+			if(icon != '')
 			{
-				if(this.icons_name2ilindex.Has(name))
-					icon_index := this.icons_name2ilindex[name]
-				else if(this.icons_name2ilindex.Has(icon))
+				if(this.icons_name2ilindex.Has(icon))
 					icon_index := this.icons_name2ilindex[icon]
 			}
 			this.list_view.Add("Icon" icon_index, v)
