@@ -1,0 +1,47 @@
+/* Met Office external website
+
+Colours:
+- black/dark grey: #202A2C
+- dark grey: #666666
+- grey: #DDDDDD (thin lines)
+- light grey: #EEEEEE (background colour)
+- darkish green: #BCDB0C
+- green: #CCFF33
+- darkish blue: #4BA8BA
+- blue: #00ADD0
+
+*/
+
+/*******************************************************************************
+ * GENERAL
+ ******************************************************************************/
+/*<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,700' rel='stylesheet' type='text/css'>*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,700);
+
+body {
+    font-size: 15px;
+	color:#ffffff;
+    font-family: "Open Sans", sans-serif !important;
+    white-space: pre-wrap;
+	font-family:verdana;
+	padding:20 px;
+	border-radius:10 px;
+	border:10 px;
+	background-color:#252525;
+	word-break: break-all;
+	/*Overflow :Hidden;*/
+	/*background-image:url('../../cherry-snippet/Icons/html_a.jpg');*/
+}
+
+html::-webkit-scrollbar {
+    width: 20px; 
+  }
+  
+html::-webkit-scrollbar-track {
+    background:  linear-gradient(0deg, rgba(255, 0, 0, 1) 0%, rgba(7, 0, 211, 1) 100%);
+  }
+
+html::-webkit-scrollbar-thumb {
+    background: transparent;
+    box-shadow: 0px 0px 0px 100vh black;
+  }
