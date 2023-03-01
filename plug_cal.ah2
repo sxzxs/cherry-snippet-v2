@@ -1,20 +1,21 @@
 ;plug_cal.ah2
 #include <log>
 #include <zmq>
-#include <TextRender>
 #include <NTLCalc>
 #include ./utility/Config.ah2
 
 CoordMode('ToolTip', 'Screen')
 
-obj_cfg := Config(A_ScriptDir "/config/data2html.json")
+obj_cfg := Config(A_ScriptDir "/config/plug_cal.json")
 main_obj_cfg := Config(A_ScriptDir "/config/settings.json")
 cfg := obj_cfg.config
 main_cfg := main_obj_cfg.config
-g_tr := TextRender()
 g_tt_hwnd := 0
 
 TT_CAL_RESULT := 1
+
+if(!cfg['is_open'])
+    ExitApp
 
 ;设置log模式
 logger.is_log_open := cfg['is_log_open']
@@ -28,8 +29,8 @@ socket := zmq_socket(ctx, ZMQ_SUB)
 rtn := zmq_connect(socket, "inproc://main")
 rtn := zmq_setsockopt(socket, ZMQ_SUBSCRIBE, buf := StrBuf(''), buf.Size - 1)
 
-SetTimer(exe_command , 100)
 OnExit(exit)
+SetTimer(exe_command , 50)
 return
 
 exit(*)
@@ -39,15 +40,22 @@ exit(*)
 }
 exe_command(*)
 {
+	Critical 'on'
     global g_tt_hwnd
-    rtn := zmq_recv_string(socket, &recv_str := '')
-    logger.info("recv str :", recv_str)
-    if(recv_str == '')
+    try
     {
-        try
-        {
-            WinHide(g_tt_hwnd)
-        }
+        rtn := zmq_recv_string(socket, &recv_str := '')
+    }
+    catch as e
+    {
+        logger.err(e.Message)
+        return
+    }
+    if(rtn == -1)
+        return
+    if(recv_str == '@stop' || recv_str == '')
+    {
+        ToolTip('')
         return
     }
     x := main_cfg['win_x']
@@ -61,10 +69,12 @@ exe_command(*)
         }
         catch as e
         {
+            logger.err(e.Message)
             return
         }
         g_tt_hwnd := ToolTip(SubPat[1] '`n = ' rtn, x, y, TT_CAL_RESULT)
     }
+	Critical 'off'
 }
 
 ; 返回包含字符串的缓冲对象.

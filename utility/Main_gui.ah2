@@ -171,7 +171,8 @@ class Main_gui
 		this.list_view.Modify(1, "Select Focus Vis"), this.one_select_item_change()
 		this.list_view.ModifyCol(1, Number(cfg['win_w']) - 25)
 		this.show()
-		sender2plug.pub(edit.Value)
+		if(edit.Value != '')
+			sender2plug.pub(edit.Value)
 		local_match(filter_array, value)
 		{
 			loop(filter_array.Length)
@@ -270,7 +271,7 @@ class Main_gui
 		WinSetRegion(Format('0-0 W{} H{} R10-10', w, h + h1), this.ui.Hwnd)
 		WinSetTransparent(cfg['win_trans'], this.ui.Hwnd)
 	}
-	static hide(*) => (logger.info("hide"), this.ui.Hide(), g_tr.RenderOnScreen(''), g_tr.clear(), g_tr.FreeMemory(), g_activex.hide(), g_webview.hide())
+	static hide(*) => (logger.info("hide"), this.ui.Hide(), g_tr.RenderOnScreen(''), g_tr.clear(), g_tr.FreeMemory(), g_activex.hide(), g_webview.hide(), sender2plug.pub('@stop'))
 	static auto_change_listview_height()
 	{
 		max_number := 15

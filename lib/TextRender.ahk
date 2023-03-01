@@ -1804,6 +1804,8 @@ class TextRender {
 
          ; Define window behavior.
          WindowProc(hwnd, uMsg, wParam, lParam) {
+            if(!IsSet(uMsg))
+               return
 
             ; Prevent the script from exiting early.
             static active_windows := Persistent()
@@ -1852,7 +1854,7 @@ class TextRender {
 
             ; Process windows messages by invoking the associated callback.
             try for message, event in dict.OwnProps()
-               if (uMsg = message)
+               if (IsSet(uMsg) && uMsg = message)
                   try if callback := self.events[event]
                      return (callback.MaxParams = 0) ? callback() : callback(self) ; Callbacks have a reference to "this".
 

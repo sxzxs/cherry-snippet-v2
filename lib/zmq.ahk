@@ -66,7 +66,7 @@ zmq_send_string(socket, str, encoding := "UTF-8", mode := 0)
  * @param {any} socket 
  * @param {varref} recv_str 
  * @param {string} encoding 
- * @param {number} mode 设置ZMQ_DONTWAIT非阻塞，立即返回-1, 并设置Errors为EAGAIN
+ * @param {number} mode 设置 ZMQ_DONTWAIT 非阻塞，立即返回-1, 并设置Errors为EAGAIN
  * @param {number} buf_size 
  * @returns {void} 接收到的字节,如果失败返回-1
  */
@@ -74,7 +74,8 @@ zmq_recv_string(socket, &recv_str := '', mode := 0, encoding := "UTF-8", buf_siz
 {
     buf := Buffer(buf_size, 0)
     rtn := zmq_recv(socket, buf, buf_size, mode)
-    recv_str := StrGet(buf, rtn, encoding)
+    if(rtn != -1)
+        recv_str := StrGet(buf, rtn, encoding)
     return rtn
 }
 

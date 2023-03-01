@@ -15,6 +15,6 @@ class Zmq_send2plug
 	}
 	pub(data := unset)
 	{
-        zmq_send_string(this.socket, data)
+        zmq_send_string(this.socket, data,,ZMQ_DONTWAIT)
 	}
 }
