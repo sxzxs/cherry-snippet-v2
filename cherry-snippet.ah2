@@ -38,6 +38,7 @@
 #include ./utility/Webview2_preview.ah2
 #include ./utility/ActiveX.ah2
 #include ./utility/Zmq_send2cherry.ah2
+#include ./utility/Zmq_send2plug.ah2
 #include ./utility/Input_hook.ah2
 #include ./utility/Tooltip_render.ah2
 
@@ -69,6 +70,7 @@ main()
 		ExitApp
 	}
 
+	global g_zmq_ctx := zmq_ctx_new()
 	global obj_cfg := Config(A_ScriptDir "/config/settings.json")
 	global cfg := obj_cfg.config
 	global g_tr := TextRender()
@@ -77,6 +79,7 @@ main()
 	global g_activex := ActiveX_preview()
 	global g_ih := Input_hook()
 	global sender := Zmq_send2cherry() ;通过zmq 和 cherry通讯
+	global sender2plug := Zmq_send2plug() ;通过zmq 和 plug通讯
 
 	;设置log模式
 	logger.is_log_open := cfg['is_log_open']
@@ -102,7 +105,7 @@ main()
 	Main_gui.create()
 
 	;注册热键
-	Hotkey("~esc", (key) => (Main_gui.Hide(key)))
+	Hotkey("~esc", (key) => (Main_gui.Hide(key), sender2plug.pub('')))
 	Hotkey(cfg['key_open_search_box'], (key) => (copy_css2res(), Main_gui.edit.value := '',Main_gui.list_view.Delete(), Main_gui.show(key)))
 	Hotkey(cfg['hook_open'], (key) => (copy_css2res(), g_ih.start()))
 	Hotkey(cfg['key_open_editor'], (key) => (sender.send_command()))
@@ -128,10 +131,11 @@ main()
 	;定时监控cherryTree data文件变化
 	SetTimer(monitor_file_change, 1000)
 	;开监控db修改html导出线程
+	thread_plug_cal := Worker('#include ' A_scriptdir '/plug_cal.ah2', String(sender2plug.ctx))
 	thread_find_image := Worker('#include ' A_scriptdir '/data2html.ah2')
 	loop
 	{ 
-	}until(thread_find_image.Ready)
+	}until(thread_find_image.Ready, thread_plug_cal.Ready)
 }
 
 copy_css2res()

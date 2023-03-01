@@ -171,6 +171,7 @@ class Main_gui
 		this.list_view.Modify(1, "Select Focus Vis"), this.one_select_item_change()
 		this.list_view.ModifyCol(1, Number(cfg['win_w']) - 25)
 		this.show()
+		sender2plug.pub(edit.Value)
 		local_match(filter_array, value)
 		{
 			loop(filter_array.Length)
