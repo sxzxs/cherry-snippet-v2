@@ -15,6 +15,7 @@ class Zmq_send2plug
 	}
 	pub(data := unset)
 	{
-        zmq_send_string(this.socket, data,,ZMQ_DONTWAIT)
+		if(IsSet(data) && (InStr(data, '/') == 1 || InStr(data, '@stop')))
+        	zmq_send_string(this.socket, data,,ZMQ_DONTWAIT)
 	}
 }

@@ -44,7 +44,9 @@ exe_command(*)
     global g_tt_hwnd
     try
     {
-        rtn := zmq_recv_string(socket, &recv_str := '')
+        rtn := zmq_recv_string(socket, &recv_str := '', ZMQ_DONTWAIT)
+        if(rtn == -1)
+            return
     }
     catch as e
     {
