@@ -143,6 +143,7 @@ class Main_gui
 	static filter(argv*)
 	{
 		edit := this.edit
+		Global_data.current_input_text := edit.Value
 		result := []
 		for k,v in Tree_node_data.node_data
 		{

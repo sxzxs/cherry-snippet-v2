@@ -132,6 +132,7 @@ main()
 	SetTimer(monitor_file_change, 1000)
 	;开监控db修改html导出线程
 	thread_plug_cal := Worker('#include ' A_scriptdir '/plug_cal.ah2', String(sender2plug.ctx))
+	thread_plug_cd := Worker('#include ' A_scriptdir '/plug_cd.ah2', String(sender2plug.ctx))
 	thread_find_image := Worker('#include ' A_scriptdir '/data2html.ah2')
 	loop
 	{ 
@@ -181,10 +182,14 @@ monitor_file_change()
 	}
 }
 
-
 send_command(*)
 {
 	Main_gui.hide()
+	if(instr(Global_data.current_input_text,'/')  == 1)
+	{
+		SendInput('{RShift Down}{Insert}{RShift Up}')
+		return
+	}
     old_str := A_Clipboard 
     A_Clipboard := "" ; 清空剪贴板
     A_Clipboard := Global_data.current_select_text
@@ -200,6 +205,11 @@ execute_command(*)
 	Main_gui.hide()
 	try
 	{
+		if(instr(Global_data.current_input_text,'/')  == 1)
+		{
+			SendInput('{RShift Down}{Insert}{RShift Up}')
+			return
+		}
 		if(Global_data.current_select_text == '')
 			return
 		if(SubStr(Global_data.current_select_text, 1, 3) == ";v2")
