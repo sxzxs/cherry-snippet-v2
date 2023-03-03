@@ -20,6 +20,7 @@
 
 #include <log>
 #include <py>
+#include <huma>
 #include <Class_SQLiteDB>
 #include <TextRender>
 #include <Child_process>
@@ -78,6 +79,7 @@ main()
 	global g_webview := Webview2_preview()
 	global g_activex := ActiveX_preview()
 	global g_ih := Input_hook()
+	global g_huma := huma(A_ScriptDir '\lib\huma_single_dr.json')
 	global sender := Zmq_send2cherry() ;通过zmq 和 cherry通讯
 	global sender2plug := Zmq_send2plug() ;通过zmq 和 plug通讯
 

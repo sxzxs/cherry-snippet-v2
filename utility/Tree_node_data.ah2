@@ -175,6 +175,17 @@ class Tree_node_data
 				}
 				this.path2py[str_key]['all'] .= py_double
 			}
+			if(!cfg.Has('is_use_huma') || cfg['is_use_huma'] == 1)
+			{
+				if(this.path2py.has(str_key) && this.path2py[str_key].has('4'))
+					huma_str := this.path2py[str_key]['4']
+				else
+				{
+					huma_str := g_huma.code(str_key)
+					this.path2py[str_key]['4'] := huma_str
+				}
+				this.path2py[str_key]['all'] .= huma_str
+			}
 		}
     	cfg['last_parse_time'] := A_now
 
