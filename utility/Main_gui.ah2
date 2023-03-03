@@ -249,13 +249,17 @@ class Main_gui
 			this.list_view.Modify(1, "Select Focus Vis")
 		this.one_select_item_change()
 	}
-	static show(*)
+	static open_search_box(*)
 	{
 		if(cfg['auto_english'])
 		{
 			SetCapsLockState 'off'
 			switchime(0)
 		}
+		this.show()
+	}
+	static show(*)
+	{
 		this.edit.Opt('-redraw')
 		this.edit.GetPos(&x, &y, &w, &h)
 		this.list_view.GetPos(&x1, &y1, &w1, &h1)

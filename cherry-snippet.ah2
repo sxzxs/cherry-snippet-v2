@@ -45,8 +45,8 @@
 
 #SingleInstance force
 #WinActivateForce
-#ErrorStdOut
-#Warn All, Off
+;#ErrorStdOut
+;#Warn All, Off
 #MaxThreads 255
 #MaxThreadsBuffer True
 DetectHiddenWindows true
@@ -108,7 +108,7 @@ main()
 
 	;注册热键
 	Hotkey("~esc", (key) => (Main_gui.Hide(key)))
-	Hotkey(cfg['key_open_search_box'], (key) => (copy_css2res(), Main_gui.edit.value := '',Main_gui.list_view.Delete(), Main_gui.show(key)))
+	Hotkey(cfg['key_open_search_box'], (key) => (copy_css2res(), Main_gui.edit.value := '',Main_gui.list_view.Delete(), Main_gui.open_search_box(key)))
 	Hotkey(cfg['hook_open'], (key) => (copy_css2res(), g_ih.start()))
 	Hotkey(cfg['key_open_editor'], (key) => (sender.send_command()))
 	Hotkey('F8', (key) => (sender.send_command(999999999)))
