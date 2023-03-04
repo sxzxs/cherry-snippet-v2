@@ -18,12 +18,15 @@ class Main_gui
 
 		width := 'w' cfg['win_w']
 		height := 'h' cfg['win_search_box_height']
-		this.edit := ui.Add('Edit', width ' ' height ' x0 y0 vgui_edit -Multi -E0x200 ' , '')
+		; -muti选项时，默认文本无效，垂直居中有效
+		this.edit := ui.Add('Edit', width ' ' height ' x0 y0 vgui_edit  -E0x200 left +Multi -HScroll -VScroll' , '')
 		this.edit.opt('Background' cfg['win_search_box_back_color'])
 		this.edit.opt('w' cfg['win_w'])
 		this.edit.SetFont("c" cfg['win_search_box_text_color'])
 		this.edit.SetFont('S' cfg['win_search_box_font_size'])
-		DllCall("User32.dll\SendMessageW", "Ptr", this.edit.Hwnd, "Uint", (0x1500 + 1), "Ptr", True, "WStr", "🔍   欢迎使用 cherry-snippet")
+		;0x00E5 EM_SETTEXTMODE 多行默认值，似乎无效
+		;EM_SETCUEBANNER 0x1500+1 只对单行文本有效
+		DllCall("User32.dll\SendMessageW", "Ptr", this.edit.Hwnd, "Uint", 0x00E5, "Ptr", True, "WStr", "🔍   欢迎使用 cherry-snippet `r`n")
 
 		;LV0x10000 双缓冲, E0x200 控件边框, 0x2000 禁用滚动条
 		LV := ui.Add("ListView",width " r5 vgui_list_view -Grid -Hdr -E0x200 -Multi +LV0x10000 -0x2000 +AutoSize ", [""])
@@ -273,8 +276,9 @@ class Main_gui
 		this.edit.Opt('redraw')
 		this.list_view.Opt('redraw')
 		this.ui.Show("w" w " h" h + h1 " x" cfg['win_x'] " y" cfg['win_y'])
-		WinSetRegion(Format('0-0 W{} H{} R10-10', w, h + h1), this.ui.Hwnd)
-		WinSetTransparent(cfg['win_trans'], this.ui.Hwnd)
+		Edit_VCENTER(this.edit.Hwnd) ;文本垂直居中
+		WinSetRegion(Format('0-0 W{} H{} R10-10', w, h + h1), this.ui.Hwnd) ;设置圆角,有毛边
+		WinSetTransparent(cfg['win_trans'], this.ui.Hwnd) ;设置透明度
 	}
 	static hide(*) => (logger.info("hide"), this.ui.Hide(), g_tr.RenderOnScreen(''), g_tr.clear(), g_tr.FreeMemory(), g_activex.hide(), g_webview.hide(), sender2plug.pub('@stop'))
 	static auto_change_listview_height()

@@ -131,3 +131,29 @@ RunAsAdmin()
         ExitApp
     }
 }
+
+; by just me
+Edit_VCENTER(HEDIT) { ; The Edit control must have the ES_MULTILINE style (0x0004 \ +Multi)!
+   ; EM_GETRECT := 0x00B2 <- msdn.microsoft.com/en-us/library/bb761596(v=vs.85).aspx
+   ; EM_SETRECT := 0x00B3 <- msdn.microsoft.com/en-us/library/bb761657(v=vs.85).aspx
+   RC := Buffer(16, 0)
+   DllCall("User32.dll\GetClientRect", "Ptr", HEDIT, "Ptr", RC)
+   CLHeight := NumGet(RC, 12, "Int")
+   HFONT := SendMessage(0x0031, 0, 0, HEDIT) ;WM_GETFONT
+   HDC := DllCall("GetDC", "Ptr", HEDIT, "UPtr")
+   DllCall("SelectObject", "Ptr", HDC, "Ptr", HFONT)
+   RC := Buffer(16, 0)
+   DTH := DllCall("DrawText", "Ptr", HDC, "Str", "W", "Int", 1, "Ptr", RC, "UInt", 0x2400)
+   DllCall("ReleaseDC", "Ptr", HEDIT, "Ptr", HDC)
+   rtn := SendMessage(0x00BA, 0, 0, HEDIT) ; EM_GETLINECOUNT
+
+   TXHeight := DTH * rtn
+   If (TXHeight > CLHeight)
+      Return False
+   RC := Buffer(16, 0)
+   SendMessage(0x00B2, 0, RC.Ptr, HEDIT)
+   DY := (CLHeight - TXHeight) // 2
+   NumPut("int", DY, RC, 4)
+   NumPut("int", TXHeight + DY, RC, 12)
+   SendMessage(0x00B3, 0, RC.Ptr, HEDIT)
+}
