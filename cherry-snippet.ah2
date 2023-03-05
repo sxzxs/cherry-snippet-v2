@@ -189,6 +189,14 @@ send_command(*)
 	Main_gui.hide()
 	if(instr(Global_data.current_input_text,'/')  == 1)
 	{
+		if(InStr(Global_data.current_input_text, '/cd ') == 1)
+		{
+			cd_str := A_Clipboard
+			cd_str := StrLower(cd_str)
+			cd_str := RegExReplace(cd_str, 'i)\s+', '_')
+			cd_str := RegExReplace(cd_str, "[^A-Za-z0-9_]", "")
+			A_Clipboard := cd_str
+		}
 		SendInput('{RShift Down}{Insert}{RShift Up}')
 		return
 	}
