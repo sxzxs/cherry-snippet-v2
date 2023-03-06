@@ -135,6 +135,7 @@ Class Input_hook
 
 		Global_data.current_select_text := preview_command
 		Global_data.current_select_node_id := Tree_node_data.path2id[this.tab_value[this.list_index]]
+		Global_data.current_input_text := this.current_hook_string
 
 		if(cfg['is_use_html_preview'] && !FileExist(html_file_path))
 			g_webview.hide()

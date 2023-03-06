@@ -157,3 +157,18 @@ Edit_VCENTER(HEDIT) { ; The Edit control must have the ES_MULTILINE style (0x000
    NumPut("int", TXHeight + DY, RC, 12)
    SendMessage(0x00B3, 0, RC.Ptr, HEDIT)
 }
+
+
+;设置暗色主题，win10
+set_the_dark_theme()
+{
+
+    if(instr(A_OSVersion, '10.') != 1)
+        return
+    ;https://stackoverflow.com/a/58547831/894589
+    uxtheme := DllCall("GetModuleHandle", "str", "uxtheme", "ptr")
+    SetPreferredAppMode := DllCall("GetProcAddress", "ptr", uxtheme, "ptr", 135, "ptr")
+    FlushMenuThemes := DllCall("GetProcAddress", "ptr", uxtheme, "ptr", 136, "ptr")
+    DllCall(SetPreferredAppMode, "int", 1) ; Dark
+    DllCall(FlushMenuThemes)
+}

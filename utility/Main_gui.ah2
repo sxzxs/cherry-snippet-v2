@@ -11,6 +11,8 @@ class Main_gui
 	static __Delete() => 1
 	static create()
 	{
+		if(!cfg.Has('is_use_dark_mode') || cfg['is_use_dark_mode'] == 1)
+			set_the_dark_theme()
 		ui := Gui("+AlwaysOnTop -DPIScale -Caption -Border +LastFound ToolWindow -Resize -HScroll", "cherry v2")
 		this.ui := ui
 		ui.SetFont(, cfg['win_hook_font'])
