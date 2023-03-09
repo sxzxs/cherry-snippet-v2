@@ -129,16 +129,18 @@ main()
 	HotIf()
 	;注册消息
 	OnMessage(0x201, WM_LBUTTONDOWN)
-	OnExit((*) => ( Single_instance.close()))
+	OnExit((*) => ( Single_instance.close(), sender2plug.pub('@exit')))
 	;定时监控cherryTree data文件变化
 	SetTimer(monitor_file_change, 1000)
 	;开监控db修改html导出线程
 	thread_plug_cal := Worker('#include ' A_scriptdir '/plug_cal.ah2', String(sender2plug.ctx))
-	thread_plug_cd := Worker('#include ' A_scriptdir '/plug_cd.ah2', String(sender2plug.ctx))
+	thread_plug_cd := Worker('#include ' A_scriptdir '/plug_cd.ah2', string(sender2plug.ctx))
 	thread_find_image := Worker('#include ' A_scriptdir '/data2html.ah2')
 	loop
 	{ 
 	}until(thread_find_image.Ready, thread_plug_cal.Ready)
+	command := A_AhkPath ' /script ' A_ScriptDir "\tool\ai\ai.ah2 "
+	run(command)
 }
 
 copy_css2res()
