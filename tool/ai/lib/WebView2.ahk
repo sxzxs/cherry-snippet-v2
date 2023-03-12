@@ -1294,3 +1294,25 @@ CoTaskMem_String(ptr) {
 	s := StrGet(ptr), DllCall('ole32\CoTaskMemFree', 'ptr', ptr)
 	return s
 }
+class SyncHandler extends WebView2.Handler {
+	__New(cb := 0) {
+		this.obj := SyncHandler.CompletedEventHandler()
+		this.obj.cb := cb
+		super.__New(this.obj, 3)
+	}
+	wait() {
+		o := this.obj
+		while !o.status
+			Sleep(10)
+		o.status := 0, Sleep(100)
+	}
+
+	class CompletedEventHandler {
+		status := 0, cb := 0
+		call(handler, args*) {
+			if this.cb
+				(this.cb)(args)
+			this.status := 1
+		}
+	}
+}

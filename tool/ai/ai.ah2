@@ -6,6 +6,8 @@
 #include ../../utility/Config.ah2
 #include ../../utility/Utility.ah2
 
+DetectHiddenWindows True
+
 instance_once() ;清理重复进程
 ;检查是否有重复进程运行
 if(Single_instance.create('ai-ah2'))
@@ -18,6 +20,7 @@ g := Gui('+AlwaysOnTop -DPIScale +Caption +Border +LastFound -ToolWindow -Resize
 g.Show(Format("x-5000 y-5000 w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
 wv := WebView2.create(g.Hwnd)
 wv.CoreWebView2.Navigate("https://chat.theb.ai/")
+exec_sync := SyncHandler((args) => OutputDebug(StrGet(args[2])))
 
 CoordMode('ToolTip', 'Screen')
 
@@ -26,6 +29,7 @@ main_obj_cfg := Config(A_ScriptDir "/../../config/settings.json")
 cfg := obj_cfg.config
 main_cfg := main_obj_cfg.config
 g_tt_hwnd := 0
+g_is_first_show := true
 
 TT_CAL_RESULT := 1
 
@@ -48,8 +52,15 @@ OnExit(exit)
 SetTimer(exe_command , 50)
 
 ;注册热键
-Hotkey("~esc", (key) => (g.Hide()))
+Hotkey("~esc", (key) => (active_hidden_interface()))
+Hotkey("f7", (key) => (show_hide_wind(g.Hwnd)))
 return
+
+active_hidden_interface()
+{
+    if WinActive(g.hwnd)
+        g.Hide()
+}
 
 exit(*)
 {
@@ -59,6 +70,7 @@ exit(*)
 }
 exe_command(*)
 {
+    global g_is_first_show
 	Critical 'on'
     global g_tt_hwnd
     try
@@ -87,16 +99,18 @@ exe_command(*)
     y := main_cfg['win_y'] + main_cfg['win_search_box_height']
     if(RegExMatch(recv_str, 'i)\/ai\s*(.*)', &SubPat))
     {
-        static is_first_show := true
-        if(is_first_show)
+        if(g_is_first_show)
         {
             g.Show(Format("x0 y0 w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
-            is_first_show := false
+            g_is_first_show := false
         }
         else
         {
             g.Show(Format("w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
         }
+        js := 'document.getElementsByClassName("n-input__textarea-el")[0].focus()'
+        wv.CoreWebView2.ExecuteScript(js, myHandler(wv,arg:=0))
+        ;exec_sync.wait()
     }
 	Critical 'off'
 }
@@ -109,4 +123,33 @@ StrBuf(str, encoding := 'UTF-8')
     ; 复制或转换字符串.
     StrPut(str, buf, encoding)
     return buf
+}
+
+show_hide_wind(hwnd)
+{
+    global g_is_first_show
+    try
+    {
+        if WinActive(hwnd)
+            g.Hide()
+        else
+        {
+            if(g_is_first_show)
+            {
+                g.Show(Format("x0 y0 w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
+                g_is_first_show := false
+            }
+            else
+            {
+                g.Show(Format("w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
+            }
+            js := 'document.getElementsByClassName("n-input__textarea-el")[0].focus()'
+            wv.CoreWebView2.ExecuteScript(js, myHandler(wv,arg:=0))
+        }
+    }
+}
+
+myHandler(wv,arg)
+{
+    return(0)
 }
