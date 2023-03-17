@@ -16,11 +16,12 @@ if(Single_instance.create('ai-ah2'))
     ExitApp
 }
 
-g := Gui('+AlwaysOnTop -DPIScale +Caption +Border +LastFound -ToolWindow -Resize -HScroll','AI')
+g := Gui('+AlwaysOnTop -DPIScale +Caption +Border +LastFound -ToolWindow +Resize -HScroll','AI')
 g.Show(Format("x-5000 y-5000 w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
 wv := WebView2.create(g.Hwnd)
 wv.CoreWebView2.Navigate("https://chat.theb.ai/")
 exec_sync := SyncHandler((args) => OutputDebug(StrGet(args[2])))
+g.OnEvent('Size', gui_size)
 
 CoordMode('ToolTip', 'Screen')
 
@@ -106,7 +107,8 @@ exe_command(*)
         }
         else
         {
-            g.Show(Format("w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
+            ;g.Show(Format("w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
+            g.Show()
         }
         js := 'document.getElementsByClassName("n-input__textarea-el")[0].focus()'
         wv.CoreWebView2.ExecuteScript(js, myHandler(wv,arg:=0))
@@ -141,7 +143,8 @@ show_hide_wind(hwnd)
             }
             else
             {
-                g.Show(Format("w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
+                ;g.Show(Format("w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
+                g.Show()
             }
             js := 'document.getElementsByClassName("n-input__textarea-el")[0].focus()'
             wv.CoreWebView2.ExecuteScript(js, myHandler(wv,arg:=0))
@@ -152,4 +155,11 @@ show_hide_wind(hwnd)
 myHandler(wv,arg)
 {
     return(0)
+}
+
+gui_size(GuiObj, MinMax, Width, Height) 
+{
+    global wv
+	if (MinMax != -1) 
+        wv.Fill()
 }
