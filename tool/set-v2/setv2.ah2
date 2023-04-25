@@ -87,6 +87,7 @@ main()
             static key_edit_new := g_config["key_edit_new"]
             static key_open_editor := g_config["key_open_editor"]
             static hook_open := g_config["hook_open"]
+            static key_hook_with_exe_name := g_config["key_hook_with_exe_name"]
 			static key_quick_switch_node := g_config['key_quick_switch_node']
 			static is_open_search_box_double_press := g_config['is_open_search_box_double_press']
 			static is_hook_open_double_press := g_config['is_hook_open_double_press']
@@ -220,6 +221,10 @@ main()
 					_ImGui_SameLine()
 					if(_ImGui_Button('热键##hook模式快捷键热键'))
 						hotkey_get(&hook_open, 'hook模式快捷键')
+                    _ImGui_InputText("hook模式添加exe名称##key_hook_with_exe_name", &key_hook_with_exe_name)
+					_ImGui_SameLine()
+					if(_ImGui_Button('热键##hook模式添加快捷键名称热键'))
+						hotkey_get(&key_hook_with_exe_name, 'key_hook_with_exe_name模式快捷键')
                     _ImGui_InputText("跳转到CherryTree的当前节点##key_quick_switch_node", &key_quick_switch_node)
 					_ImGui_SameLine()
 					if(_ImGui_Button('热键##跳转到CherryTree的当前节点热键'))
@@ -322,6 +327,7 @@ main()
                 g_config["key_edit_new"] := key_edit_new
                 g_config["key_open_editor"] := key_open_editor
                 g_config["hook_open"] := hook_open
+                g_config["key_hook_with_exe_name"] := key_hook_with_exe_name
                 g_config["key_quick_switch_node"] := key_quick_switch_node
                 g_config["win_w"] := win_w
                 g_config["win_search_box_back_color"] := Format("0x{:06X}", _Imgui_bgr2rgb(win_search_box_back_color & 0xffffff))

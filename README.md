@@ -51,6 +51,8 @@
 回车，输入到目标窗口
 ctrl+enter,把对于的英文转为变量名称
 
+#### /ai chatgpt插件
+
 #### 自定义listview图标
 1. 在cherrytree修改节点的属性,在tag添加 "icon:百度"关键字
 2. 用上面方法设置名称后，需要放置对应名字的 Lnk,png,icon等格式的文件到/icons/tree目录

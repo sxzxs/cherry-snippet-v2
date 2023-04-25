@@ -110,6 +110,7 @@ main()
 	Hotkey("~esc", (key) => (Main_gui.Hide(key)))
 	Hotkey(cfg['key_open_search_box'], (key) => (copy_css2res(), Main_gui.edit.value := '',Main_gui.list_view.Delete(), Main_gui.open_search_box(key)))
 	Hotkey(cfg['hook_open'], (key) => (copy_css2res(), g_ih.start()))
+	Hotkey(cfg['key_hook_with_exe_name'], (key) => (copy_css2res(), g_ih.start("exe_mode")))
 	Hotkey(cfg['key_open_editor'], (key) => (sender.send_command()))
 	Hotkey('F8', (key) => (sender.send_command(999999999)))
 
@@ -202,7 +203,7 @@ send_command(*)
 		SendInput('{RShift Down}{Insert}{RShift Up}')
 		return
 	}
-    old_str := A_Clipboard 
+   old_str := A_Clipboard 
     A_Clipboard := "" ; 清空剪贴板
     A_Clipboard := Global_data.current_select_text
     if(!ClipWait(2))

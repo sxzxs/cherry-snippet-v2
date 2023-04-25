@@ -21,7 +21,8 @@
     "key_open_search_box": "+enter",
     "key_quick_switch_node": "~$^e",
     "key_send": "~$^enter",
-    "last_parse_time": "20230304235237",
+    "key_hook_with_exe_name": "^space",
+    "last_parse_time": "20230426004215",
     "python_path": "C:\\Python310\\python.exe",
     "tooltip_back_color": "0x1E1E1E",
     "tooltip_font_size": "15",
@@ -49,7 +50,7 @@
     "win_search_box_text_color": "0x663DB5",
     "win_search_box_height": "60",
     "win_trans": "240",
-    "win_w": "700",
-    "win_x": 712,
-    "win_y": 152
+    "win_w": "800",
+    "win_x": 672,
+    "win_y": 175
 }

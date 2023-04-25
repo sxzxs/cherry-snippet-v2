@@ -20,7 +20,10 @@ g := Gui('+AlwaysOnTop -DPIScale +Caption +Border +LastFound -ToolWindow +Resize
 g.Show(Format("x-5000 y-5000 w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
 wv := WebView2.create(g.Hwnd)
 ;wv.CoreWebView2.Navigate("https://chat.theb.ai/")
-wv.CoreWebView2.Navigate("https://Chat.yqcloud.top")
+;wv.CoreWebView2.Navigate("https://Chat.yqcloud.top")
+;http://choiajsd.aichatos.com/
+wv.CoreWebView2.Navigate("http://chat1.aichatos.com/")
+
 exec_sync := SyncHandler((args) => OutputDebug(StrGet(args[2])))
 g.OnEvent('Size', gui_size)
 

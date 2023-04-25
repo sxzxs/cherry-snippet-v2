@@ -3,6 +3,7 @@ Class Input_hook
 	current_hook_string := ''
 	list_index := 1
 	is_hook_mode := false
+	is_exe_mode := false
 	__New() 
 	{
 		this.SacHook := SacHook := InputHook("E", "{Esc}")
@@ -44,6 +45,13 @@ Class Input_hook
 		this.clear_value()
 		this.SacHook.Start()
 		this.is_hook_mode := true
+			this.is_exe_mode := false
+		if(argv.Length >= 1 && argv[1] == "exe_mode")
+		{
+			exe_name := WinGetProcessName('A')
+			this.current_hook_string := exe_name ' '
+			this.is_exe_mode := true
+		}
 		this.update()
 		this.tt.show()
 		WinSetAlwaysOnTop(true, g_webview.main.Hwnd)
@@ -72,7 +80,10 @@ Class Input_hook
 		if(GetKeyVK(char) == 13)
 		{
 			logger.info("send")
-			send_command()
+			if(this.is_exe_mode)
+				execute_command()
+			else
+				send_command()
 			this.stop()
 			return
 		}
