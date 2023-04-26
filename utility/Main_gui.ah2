@@ -111,7 +111,7 @@ class Main_gui
         this.rmenu.Add("复制`t(&C)", (*) => (Main_gui.hide(), A_Clipboard := Global_data.current_select_text, g_tt_tr.render('Saved to clipboard')))
         this.rmenu.Add("发送`t(&D)", (*) => send_command())
         this.rmenu.Add("运行`t(&U)", (*) => execute_command())
-		command := A_AhkPath ' /script ' A_ScriptDir "\tool\set-v2\setv2.ah2 " DllCall("GetCurrentProcessId")
+		command := A_AhkPath ' /script ' '"' A_ScriptDir "\tool\set-v2\setv2.ah2" '" '  DllCall("GetCurrentProcessId") 
         this.rmenu.Add("设置`t(&S)", (*) => run(command))
         this.rmenu.Add("帮助`t(&H)", (*) => run(A_ScriptDir "\README.html"))
         this.rmenu.Add()

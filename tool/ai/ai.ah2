@@ -19,10 +19,19 @@ if(Single_instance.create('ai-ah2'))
 g := Gui('+AlwaysOnTop -DPIScale +Caption +Border +LastFound -ToolWindow +Resize -HScroll','AI')
 g.Show(Format("x-5000 y-5000 w{} h{}", A_ScreenWidth * 0.6, A_ScreenHeight * 0.6))
 wv := WebView2.create(g.Hwnd)
-;wv.CoreWebView2.Navigate("https://chat.theb.ai/")
-;wv.CoreWebView2.Navigate("https://Chat.yqcloud.top")
-;http://choiajsd.aichatos.com/
-wv.CoreWebView2.Navigate("http://chat1.aichatos.com/")
+
+
+url := get_chatgpt_url('https://raw.githubusercontent.com/sxzxs/data/main/ai')
+if(url == '')
+{
+    url := get_chatgpt_url('https://gitee.com/kazhafeizhale/data/raw/master/data/chatgpt')
+}
+if(url == '')
+{
+    url := 'https://github.com/sxzxs/cherry-snippet-v2'
+}
+
+wv.CoreWebView2.Navigate(url )
 
 exec_sync := SyncHandler((args) => OutputDebug(StrGet(args[2])))
 g.OnEvent('Size', gui_size)
@@ -166,4 +175,23 @@ gui_size(GuiObj, MinMax, Width, Height)
     global wv
 	if (MinMax != -1) 
         wv.Fill()
+}
+
+
+get_chatgpt_url(git_url)
+{
+    try
+    {
+        whr := ComObject("WinHttp.WinHttpRequest.5.1")
+        whr.Open("GET", git_url, true)
+        whr.Send()
+        ; 使用 'true'(上面) 和调用下面的函数, 允许脚本保持响应.
+        whr.WaitForResponse()
+        version := whr.ResponseText
+    }
+    catch
+    {
+        version := ''
+    }
+    return version
 }
