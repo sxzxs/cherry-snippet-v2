@@ -38,24 +38,8 @@ g.OnEvent('Size', gui_size)
 
 CoordMode('ToolTip', 'Screen')
 
-obj_cfg := Config(A_ScriptDir "/../../config/plug_cal.json")
-main_obj_cfg := Config(A_ScriptDir "/../../config/settings.json")
-cfg := obj_cfg.config
-main_cfg := main_obj_cfg.config
 g_tt_hwnd := 0
 g_is_first_show := true
-
-TT_CAL_RESULT := 1
-
-if(!cfg['is_open'])
-    ExitApp
-
-;设置log模式
-logger.is_log_open := cfg['is_log_open']
-logger.is_out_file := cfg['is_out_file']
-logger.is_use_editor := cfg['is_use_editor']
-logger.info('plug cal...')
-logger.info(A_Args)
 
 ctx := zmq_ctx_new()
 socket := zmq_socket(ctx, ZMQ_SUB)
@@ -109,8 +93,6 @@ exe_command(*)
     {
         ExitApp
     }
-    x := main_cfg['win_x']
-    y := main_cfg['win_y'] + main_cfg['win_search_box_height']
     if(RegExMatch(recv_str, 'i)\/ai\s*(.*)', &SubPat))
     {
         if(g_is_first_show)
