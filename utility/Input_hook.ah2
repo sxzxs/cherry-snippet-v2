@@ -66,9 +66,9 @@ Class Input_hook
 	stop()
 	{
 		this.clear_value()
-		this.SacHook.Stop()
+		;this.SacHook.Stop()
 		this.is_hook_mode := false
-		this.update()
+		;this.update()
 		this.tt.hide()
 		if(!cfg['is_use_html_preview'])
 			g_tr.RenderOnScreen(''), g_tr.clear(), g_tr.FreeMemory()
@@ -84,7 +84,7 @@ Class Input_hook
 				execute_command()
 			else
 				send_command()
-			this.stop()
+			this.SacHook.Stop()
 			return
 		}
 		if(char != A_tab)
