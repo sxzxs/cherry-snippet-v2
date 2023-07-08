@@ -205,7 +205,7 @@ send_command(*)
 	}
    	old_str := A_Clipboard 
     A_Clipboard := "" ; 清空剪贴板
-	if(cfg['is_use_html_preview'])
+	if(cfg['is_use_html_preview'] && InStr(Global_data.current_select_text, '<!doctype html>'))
 		g_webview.copy2clipboard()
 	else
     	A_Clipboard := Global_data.current_select_text
