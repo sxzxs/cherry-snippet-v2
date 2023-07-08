@@ -31,6 +31,28 @@ Class Webview2_preview
 		this.show(Format('w{} h{} x{} y{} NoActivate', w, h, x, y))
 		WinSetRegion(Format('0-0 W{} H{} R10-10', w, h), this.main.Hwnd)
 	}
+	copy2clipboard()
+	{
+        static js_copy := '
+        (
+            //let editor = document.getElementById('app');//要复制的结点
+            //let editor = document.getElementsByClassName('app');//要复制的结点
+            editor = document.querySelector("body")
+
+            range = document.createRange();
+
+            window.getSelection().removeAllRanges();//先清除掉选中区域
+
+            range.selectNode(editor);
+
+            window.getSelection().addRange(range);
+
+            res = document.execCommand("copy");
+
+            window.getSelection().removeAllRanges();
+        )'
+        this.wv.ExecuteScript(js_copy, myHandler(this.wvc,arg:=0))
+	}
 	NavigationCompletedEventHandler(*) 
 	{}
 	gui_size(GuiObj, MinMax, Width, Height)
@@ -43,4 +65,9 @@ Class Webview2_preview
 			}
 		}
 	}
+}
+
+myHandler(wv,arg)
+{
+    return(0)
 }

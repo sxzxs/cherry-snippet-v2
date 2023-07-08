@@ -120,7 +120,7 @@ main()
 	HotIf()
 	HotIfWinActive("ahk_id " Main_gui.ui.Hwnd)
         Hotkey("enter", execute_command)
-        Hotkey("~$^c", (*) => (Main_gui.hide(), A_Clipboard := Global_data.current_select_text, g_tt_tr.render('Saved to clipboard')))
+        Hotkey("~$^c", (*) => (Main_gui.hide(), cfg['is_use_html_preview'] ? g_webview.copy2clipboard() : A_Clipboard := Global_data.current_select_text, g_tt_tr.render('Saved to clipboard')))
         Hotkey(cfg['key_send'], send_command)
 		Hotkey("up", (*) => Main_gui.focus_before_row())
 		Hotkey("down", (*) => Main_gui.focus_next_row())
@@ -203,9 +203,12 @@ send_command(*)
 		SendInput('{RShift Down}{Insert}{RShift Up}')
 		return
 	}
-   old_str := A_Clipboard 
+   	old_str := A_Clipboard 
     A_Clipboard := "" ; 清空剪贴板
-    A_Clipboard := Global_data.current_select_text
+	if(cfg['is_use_html_preview'])
+		g_webview.copy2clipboard()
+	else
+    	A_Clipboard := Global_data.current_select_text
     if(!ClipWait(2))
 	{
 		A_Clipboard := old_str
