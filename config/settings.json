@@ -1,9 +1,9 @@
 ﻿{
     "auto_english": 1,
-    "cherry_tree_path": "F:\\cherry-tree-protable\\cherrytree_0.99.51.0_win64_portable\\mingw64\\bin\\cherrytree.exe",
-    "db_path": "G:\\我的AHK程序\\我的工程\\cherry-snippet1\\data.ctb",
+    "cherry_tree_path": "E:\\cherrytree_0.99.51.0_win64_portable\\mingw64\\bin\\cherrytree.exe",
+    "db_path": "E:\\我的AHK程序\\data.ctb",
     "hook_open": "+space",
-    "html_path": "G:\\我的AHK程序\\我的工程\\cherry-snippet",
+    "html_path": "E:\\我的AHK程序\\cherry-html",
     "is_hook_open_double_press": 0,
     "is_open_search_box_double_press": 0,
     "is_show_logo": 0,
@@ -21,8 +21,8 @@
     "key_open_search_box": "+enter",
     "key_quick_switch_node": "~$^e",
     "key_send": "~$^enter",
-    "key_hook_with_exe_name": "^space",
-    "last_parse_time": "20230426004215",
+    "key_hook_with_exe_name": "CapsLock",
+    "last_parse_time": "20230727133200",
     "python_path": "C:\\Python310\\python.exe",
     "tooltip_back_color": "0x1E1E1E",
     "tooltip_font_size": "15",
@@ -51,6 +51,6 @@
     "win_search_box_height": "60",
     "win_trans": "240",
     "win_w": "800",
-    "win_x": 672,
-    "win_y": 175
+    "win_x": 184,
+    "win_y": 166
 }

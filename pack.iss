@@ -1,17 +1,17 @@
-ï»¿; è„šæœ¬ç”± Inno Setup è„šæœ¬å‘å¯¼ ç”Ÿæˆï¼
-; æœ‰å…³åˆ›å»º Inno Setup è„šæœ¬æ–‡ä»¶çš„è¯¦ç»†èµ„æ–™è¯·æŸ¥é˜…å¸®åŠ©æ–‡æ¡£ï¼
+; ½Å±¾ÓÉ Inno Setup ½Å±¾Ïòµ¼ Éú³É£¡
+; ÓĞ¹Ø´´½¨ Inno Setup ½Å±¾ÎÄ¼şµÄÏêÏ¸×ÊÁÏÇë²éÔÄ°ïÖúÎÄµµ£¡
 
-#define MyAppName "CherrySnippet"
-#define MyAppVersion "1.0"
-#define MyAppPublisher "xzsxzxs"
+#define MyAppName "cherrySnippt"
+#define MyAppVersion "2.0"
+#define MyAppPublisher "sxzxs"
 #define MyAppURL "https://github.com/sxzxs/cherry-snippet-v2"
 #define MyAppExeName "cherry-snippet.exe"
 
 [Setup]
-; æ³¨: AppIdçš„å€¼ä¸ºå•ç‹¬æ ‡è¯†è¯¥åº”ç”¨ç¨‹åºã€‚
-; ä¸è¦ä¸ºå…¶ä»–å®‰è£…ç¨‹åºä½¿ç”¨ç›¸åŒçš„AppIdå€¼ã€‚
-; (è‹¥è¦ç”Ÿæˆæ–°çš„ GUIDï¼Œå¯åœ¨èœå•ä¸­ç‚¹å‡» "å·¥å…·|ç”Ÿæˆ GUID"ã€‚)
-AppId={{6207949A-613F-4B93-B227-19F12BD5D78A}
+; ×¢: AppIdµÄÖµÎªµ¥¶À±êÊ¶¸ÃÓ¦ÓÃ³ÌĞò¡£
+; ²»ÒªÎªÆäËû°²×°³ÌĞòÊ¹ÓÃÏàÍ¬µÄAppIdÖµ¡£
+; (ÈôÒªÉú³ÉĞÂµÄ GUID£¬¿ÉÔÚ²Ëµ¥ÖĞµã»÷ "¹¤¾ß|Éú³É GUID"¡£)
+AppId={{FD2AE1C2-FC74-4AD4-8A48-C53FEFF30504}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -21,49 +21,26 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName=C:\{#MyAppName}
 DisableProgramGroupPage=yes
-; ä»¥ä¸‹è¡Œå–æ¶ˆæ³¨é‡Šï¼Œä»¥åœ¨éç®¡ç†å®‰è£…æ¨¡å¼ä¸‹è¿è¡Œï¼ˆä»…ä¸ºå½“å‰ç”¨æˆ·å®‰è£…ï¼‰ã€‚
+; ÒÔÏÂĞĞÈ¡Ïû×¢ÊÍ£¬ÒÔÔÚ·Ç¹ÜÀí°²×°Ä£Ê½ÏÂÔËĞĞ£¨½öÎªµ±Ç°ÓÃ»§°²×°£©¡£
 ;PrivilegesRequired=lowest
-OutputDir=F:\æ‰“åŒ…å·¥å…·
-OutputBaseFilename=CherrySnippet-setup
+OutputDir=E:\´ò°ü
+OutputBaseFilename=mysetup
+SetupIconFile=E:\ÎÒµÄAHK³ÌĞò\cherry-snippet-v2\icons\main.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
 
 [Languages]
 Name: "chinesesimp"; MessagesFile: "compiler:Default.isl"
-Name: "armenian"; MessagesFile: "compiler:Languages\Armenian.isl"
-Name: "brazilianportuguese"; MessagesFile: "compiler:Languages\BrazilianPortuguese.isl"
-Name: "bulgarian"; MessagesFile: "compiler:Languages\Bulgarian.isl"
-Name: "catalan"; MessagesFile: "compiler:Languages\Catalan.isl"
-Name: "corsican"; MessagesFile: "compiler:Languages\Corsican.isl"
-Name: "czech"; MessagesFile: "compiler:Languages\Czech.isl"
-Name: "danish"; MessagesFile: "compiler:Languages\Danish.isl"
-Name: "dutch"; MessagesFile: "compiler:Languages\Dutch.isl"
 Name: "english"; MessagesFile: "compiler:Languages\English.isl"
-Name: "finnish"; MessagesFile: "compiler:Languages\Finnish.isl"
-Name: "french"; MessagesFile: "compiler:Languages\French.isl"
-Name: "german"; MessagesFile: "compiler:Languages\German.isl"
-Name: "hebrew"; MessagesFile: "compiler:Languages\Hebrew.isl"
-Name: "icelandic"; MessagesFile: "compiler:Languages\Icelandic.isl"
-Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
-Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
-Name: "norwegian"; MessagesFile: "compiler:Languages\Norwegian.isl"
-Name: "polish"; MessagesFile: "compiler:Languages\Polish.isl"
-Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
-Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
-Name: "slovak"; MessagesFile: "compiler:Languages\Slovak.isl"
-Name: "slovenian"; MessagesFile: "compiler:Languages\Slovenian.isl"
-Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
-Name: "turkish"; MessagesFile: "compiler:Languages\Turkish.isl"
-Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "G:\æˆ‘çš„AHKç¨‹åº\æˆ‘çš„å·¥ç¨‹\cherry-snippet\cherry-snippet-v2\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "G:\æˆ‘çš„AHKç¨‹åº\æˆ‘çš„å·¥ç¨‹\cherry-snippet\cherry-snippet-v2\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
-; æ³¨æ„: ä¸è¦åœ¨ä»»ä½•å…±äº«ç³»ç»Ÿæ–‡ä»¶ä¸Šä½¿ç”¨â€œFlags: ignoreversionâ€
+Source: "E:\ÎÒµÄAHK³ÌĞò\cherry-snippet-v2\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "E:\ÎÒµÄAHK³ÌĞò\cherry-snippet-v2\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+; ×¢Òâ: ²»ÒªÔÚÈÎºÎ¹²ÏíÏµÍ³ÎÄ¼şÉÏÊ¹ÓÃ¡°Flags: ignoreversion¡±
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
