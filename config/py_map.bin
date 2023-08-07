@@ -3163,5 +3163,95 @@
         "1": " | 2023-QIYUE-27 ZHOUSI",
         "2": " | 2023-QY-27 ZS",
         "all": "2023-七月-27 周四 | 2023-QIYUE-27 ZHOUSI | 2023-QY-27 ZS"
+    },
+    "2023-七月-28 周五": {
+        "1": " | 2023-QIYUE-28 ZHOUWU",
+        "2": " | 2023-QY-28 ZW",
+        "all": "2023-七月-28 周五 | 2023-QIYUE-28 ZHOUWU | 2023-QY-28 ZW"
+    },
+    "2023-七月-29 周六": {
+        "1": " | 2023-QIYUE-29 ZHOULU | 2023-QIYUE-29 ZHOULIU",
+        "2": " | 2023-QY-29 ZL",
+        "all": "2023-七月-29 周六 | 2023-QIYUE-29 ZHOULU | 2023-QIYUE-29 ZHOULIU | 2023-QY-29 ZL"
+    },
+    "2023-七月-30 周日": {
+        "1": " | 2023-QIYUE-30 ZHOURI",
+        "2": " | 2023-QY-30 ZR",
+        "all": "2023-七月-30 周日 | 2023-QIYUE-30 ZHOURI | 2023-QY-30 ZR"
+    },
+    "d2d direct2d": {
+        "1": " | d2d direct2d",
+        "2": " | d2d direct2d",
+        "all": "d2d direct2d | d2d direct2d | d2d direct2d"
+    },
+    "2023-七月-31 周一": {
+        "1": " | 2023-QIYUE-31 ZHOUYI",
+        "2": " | 2023-QY-31 ZY",
+        "all": "2023-七月-31 周一 | 2023-QIYUE-31 ZHOUYI | 2023-QY-31 ZY"
+    },
+    "2023-八月": {
+        "1": " | 2023-BAYUE",
+        "2": " | 2023-BY",
+        "all": "2023-八月 | 2023-BAYUE | 2023-BY"
+    },
+    "2023-八月-01 周二": {
+        "1": " | 2023-BAYUE-01 ZHOUER",
+        "2": " | 2023-BY-01 ZE",
+        "all": "2023-八月-01 周二 | 2023-BAYUE-01 ZHOUER | 2023-BY-01 ZE"
+    },
+    "@ahk-例子-d2d模板": {
+        "1": " | @ahk-LIZI-d2dMUBAN | @ahk-LIZI-d2dMOBAN",
+        "2": " | @ahk-LZ-d2dMB",
+        "all": "@ahk-例子-d2d模板 | @ahk-LIZI-d2dMUBAN | @ahk-LIZI-d2dMOBAN | @ahk-LZ-d2dMB"
+    },
+    "2023-八月-02 周三": {
+        "1": " | 2023-BAYUE-02 ZHOUSAN",
+        "2": " | 2023-BY-02 ZS",
+        "all": "2023-八月-02 周三 | 2023-BAYUE-02 ZHOUSAN | 2023-BY-02 ZS"
+    },
+    "2023-八月-03 周四": {
+        "1": " | 2023-BAYUE-03 ZHOUSI",
+        "2": " | 2023-BY-03 ZS",
+        "all": "2023-八月-03 周四 | 2023-BAYUE-03 ZHOUSI | 2023-BY-03 ZS"
+    },
+    "2023-八月-04 周五": {
+        "1": " | 2023-BAYUE-04 ZHOUWU",
+        "2": " | 2023-BY-04 ZW",
+        "all": "2023-八月-04 周五 | 2023-BAYUE-04 ZHOUWU | 2023-BY-04 ZW"
+    },
+    "2023-八月-05 周六": {
+        "1": " | 2023-BAYUE-05 ZHOULU | 2023-BAYUE-05 ZHOULIU",
+        "2": " | 2023-BY-05 ZL",
+        "all": "2023-八月-05 周六 | 2023-BAYUE-05 ZHOULU | 2023-BAYUE-05 ZHOULIU | 2023-BY-05 ZL"
+    },
+    "2023-八月-06 周日": {
+        "1": " | 2023-BAYUE-06 ZHOURI",
+        "2": " | 2023-BY-06 ZR",
+        "all": "2023-八月-06 周日 | 2023-BAYUE-06 ZHOURI | 2023-BY-06 ZR"
+    },
+    "QT-文档": {
+        "1": " | QT-WENDANG",
+        "2": " | QT-WD",
+        "all": "QT-文档 | QT-WENDANG | QT-WD"
+    },
+    "2023-八月-07 周一": {
+        "1": " | 2023-BAYUE-07 ZHOUYI",
+        "2": " | 2023-BY-07 ZY",
+        "all": "2023-八月-07 周一 | 2023-BAYUE-07 ZHOUYI | 2023-BY-07 ZY"
+    },
+    "@code.exe-函数": {
+        "1": " | @code.exe-HANSHUO | @code.exe-HANSHU",
+        "2": " | @code.exe-HS",
+        "all": "@code.exe-函数 | @code.exe-HANSHUO | @code.exe-HANSHU | @code.exe-HS"
+    },
+    "@ahk-vscode 命令模板": {
+        "1": " | @ahk-vscode MINGLINGMUBAN | @ahk-vscode MINGLINGMOBAN",
+        "2": " | @ahk-vscode MLMB",
+        "all": "@ahk-vscode 命令模板 | @ahk-vscode MINGLINGMUBAN | @ahk-vscode MINGLINGMOBAN | @ahk-vscode MLMB"
+    },
+    "@code.exe-关闭其他": {
+        "1": " | @code.exe-GUANBIQITA | @code.exe-GUANBIJITA",
+        "2": " | @code.exe-GBJT | @code.exe-GBQT",
+        "all": "@code.exe-关闭其他 | @code.exe-GUANBIQITA | @code.exe-GUANBIJITA | @code.exe-GBJT | @code.exe-GBQT"
     }
 }

@@ -172,3 +172,9 @@ set_the_dark_theme()
     DllCall(SetPreferredAppMode, "int", 1) ; Dark
     DllCall(FlushMenuThemes)
 }
+
+set_editor_cursor_end(handle)
+{
+    SendMessage(0xB1, -2, -1,, 'ahk_id ' handle)
+    SendMessage(0xB7,,,, 'ahk_id ' handle)
+}

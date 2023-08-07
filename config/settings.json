@@ -22,7 +22,7 @@
     "key_quick_switch_node": "~$^e",
     "key_send": "~$^enter",
     "key_hook_with_exe_name": "CapsLock",
-    "last_parse_time": "20230727133200",
+    "last_parse_time": "20230807170040",
     "python_path": "C:\\Python310\\python.exe",
     "tooltip_back_color": "0x1E1E1E",
     "tooltip_font_size": "15",
@@ -51,6 +51,6 @@
     "win_search_box_height": "60",
     "win_trans": "240",
     "win_w": "800",
-    "win_x": 184,
-    "win_y": 166
+    "win_x": 582,
+    "win_y": 230
 }

@@ -150,6 +150,15 @@ Class Input_hook
 
 		if(cfg['is_use_html_preview'] && !FileExist(html_file_path))
 			g_webview.hide()
+
+		;如果执行模式，并且只匹配了一行，则直接执行
+		if(this.is_exe_mode && this.tab_value.Length == 1)
+		{
+			execute_command()
+			this.SacHook.Stop()
+			return
+		}
+
 		;记录上次的html预览，如果不变则不刷新
 		static s_html_file_path := ''
 		if(cfg['is_use_html_preview'] && FileExist(html_file_path))
