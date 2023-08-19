@@ -3253,5 +3253,70 @@
         "1": " | @code.exe-GUANBIQITA | @code.exe-GUANBIJITA",
         "2": " | @code.exe-GBJT | @code.exe-GBQT",
         "all": "@code.exe-关闭其他 | @code.exe-GUANBIQITA | @code.exe-GUANBIJITA | @code.exe-GBJT | @code.exe-GBQT"
+    },
+    "2023-八月-08 周二": {
+        "1": " | 2023-BAYUE-08 ZHOUER",
+        "2": " | 2023-BY-08 ZE",
+        "all": "2023-八月-08 周二 | 2023-BAYUE-08 ZHOUER | 2023-BY-08 ZE"
+    },
+    "@网站文件夹-文档": {
+        "1": " | @WANGZHANWENJIANJIA-WENDANG | @WANGZHANWENJIANGA-WENDANG",
+        "2": " | @WZWJG-WD | @WZWJJ-WD",
+        "all": "@网站文件夹-文档 | @WANGZHANWENJIANJIA-WENDANG | @WANGZHANWENJIANGA-WENDANG | @WZWJG-WD | @WZWJJ-WD"
+    },
+    "2023-八月-09 周三": {
+        "1": " | 2023-BAYUE-09 ZHOUSAN",
+        "2": " | 2023-BY-09 ZS",
+        "all": "2023-八月-09 周三 | 2023-BAYUE-09 ZHOUSAN | 2023-BY-09 ZS"
+    },
+    "2023-八月-10 周四": {
+        "1": " | 2023-BAYUE-10 ZHOUSI",
+        "2": " | 2023-BY-10 ZS",
+        "all": "2023-八月-10 周四 | 2023-BAYUE-10 ZHOUSI | 2023-BY-10 ZS"
+    },
+    "2023-八月-11 周五": {
+        "1": " | 2023-BAYUE-11 ZHOUWU",
+        "2": " | 2023-BY-11 ZW",
+        "all": "2023-八月-11 周五 | 2023-BAYUE-11 ZHOUWU | 2023-BY-11 ZW"
+    },
+    "@网站文件夹-文字转语音": {
+        "1": " | @WANGZHANWENJIANJIA-WENZIZHUANYUYIN | @WANGZHANWENJIANGA-WENZIZHUANYUYIN | @WANGZHANWENJIANJIA-WENZIZHUAIYUYIN | @WANGZHANWENJIANGA-WENZIZHUAIYUYIN",
+        "2": " | @WZWJG-WZZYY | @WZWJJ-WZZYY",
+        "all": "@网站文件夹-文字转语音 | @WANGZHANWENJIANJIA-WENZIZHUANYUYIN | @WANGZHANWENJIANGA-WENZIZHUANYUYIN | @WANGZHANWENJIANJIA-WENZIZHUAIYUYIN | @WANGZHANWENJIANGA-WENZIZHUAIYUYIN | @WZWJG-WZZYY | @WZWJJ-WZZYY"
+    },
+    "2023-八月-12 周六": {
+        "1": " | 2023-BAYUE-12 ZHOULU | 2023-BAYUE-12 ZHOULIU",
+        "2": " | 2023-BY-12 ZL",
+        "all": "2023-八月-12 周六 | 2023-BAYUE-12 ZHOULU | 2023-BAYUE-12 ZHOULIU | 2023-BY-12 ZL"
+    },
+    "@ahk-输入法切换": {
+        "1": " | @ahk-SHURUFAQIEHUAN",
+        "2": " | @ahk-SRFQH",
+        "all": "@ahk-输入法切换 | @ahk-SHURUFAQIEHUAN | @ahk-SRFQH"
+    },
+    "2023-八月-14 周一": {
+        "1": " | 2023-BAYUE-14 ZHOUYI",
+        "2": " | 2023-BY-14 ZY",
+        "all": "2023-八月-14 周一 | 2023-BAYUE-14 ZHOUYI | 2023-BY-14 ZY"
+    },
+    "2023-八月-15 周二": {
+        "1": " | 2023-BAYUE-15 ZHOUER",
+        "2": " | 2023-BY-15 ZE",
+        "all": "2023-八月-15 周二 | 2023-BAYUE-15 ZHOUER | 2023-BY-15 ZE"
+    },
+    "2023-八月-16 周三": {
+        "1": " | 2023-BAYUE-16 ZHOUSAN",
+        "2": " | 2023-BY-16 ZS",
+        "all": "2023-八月-16 周三 | 2023-BAYUE-16 ZHOUSAN | 2023-BY-16 ZS"
+    },
+    "2023-八月-17 周四": {
+        "1": " | 2023-BAYUE-17 ZHOUSI",
+        "2": " | 2023-BY-17 ZS",
+        "all": "2023-八月-17 周四 | 2023-BAYUE-17 ZHOUSI | 2023-BY-17 ZS"
+    },
+    "2023-八月-19 周六": {
+        "1": " | 2023-BAYUE-19 ZHOULU | 2023-BAYUE-19 ZHOULIU",
+        "2": " | 2023-BY-19 ZL",
+        "all": "2023-八月-19 周六 | 2023-BAYUE-19 ZHOULU | 2023-BAYUE-19 ZHOULIU | 2023-BY-19 ZL"
     }
 }

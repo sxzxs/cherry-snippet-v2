@@ -3,8 +3,6 @@
 ### 介绍
 `cherry-snippet` 是借助 [cherryTree](https://www.giuspen.com/cherrytree/) 笔记软件,制作的免费开源**文本片段管理工具**
 
-**注**: 目前还处于beta版本, 稳定版本[cherry-snippet v1](https://github.com/sxzxs/cherry-snippet)
-
 *v1->v2 改进: 用webview2预览、 d2d绘制hook界面、list列表增加图标*
 
 * 代码片段**记录**和**快搜**和**预览**
@@ -23,7 +21,7 @@
 |-|-|
 |系统|开启html预览需要**win10**或者安装 **[webview2 runtime](https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/3c9f7ac6-fb0a-4eb7-b1fd-44c57613a3f5/MicrosoftEdgeWebView2RuntimeInstallerX64.exe)**|
 |ahk 版本| [autohotkey v2H](https://github.com/thqby/AutoHotkey_H/releases)|
-|cherryTree.exe|[cherryTee定制 百度网盘](https://pan.baidu.com/s/1uDmzAsB_tgwexUccUjM0uA?pwd=bet2) 提取码：bet2 <br>  [cherryTree定制 蓝奏云](https://wwob.lanzoum.com/iWmdr0mpjnfa) 密码:1bkm
+|cherryTree.exe|[cherryTree定制 蓝奏云](https://wwob.lanzoum.com/iq85Y15stpmb) 密码:cxue
 |dx| [dx11 依赖下载](https://zhangyue667.lanzouh.com/DirectXRepairEnhanced)|
 
 ### 安装步骤
@@ -31,6 +29,7 @@
 2. 第一次执行会提示选择cherryTree.exe和data.ctb的目录(cherrytree_0.99.51.0_win64_portable\mingw64\bin\cherrytree.exe)
 
 ### 使用说明
+首次编辑时，需要右键托盘图标点击编辑,打开cherryTree.exe后需要设置关闭退出并保存设置，后续节点跳转不需要
 [按键列表](https://wyagd001.github.io/v2/docs/KeyList.htm#general)
 ##### 普通搜索模式
 * 打开搜索界面, 默认 shift+enter
