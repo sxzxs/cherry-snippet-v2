@@ -134,6 +134,18 @@ class Main_gui
 		this.edit.OnEvent("Change", (argv*) => this.filter(argv*))    ; 文本变动事件
 		;注册右键消息
 		OnMessage(0x0204, ObjBindMethod(this, 'WM_RBUTTON'))
+		;注册按键消息
+		OnMessage(0x0100, ObjBindMethod(this, 'WM_KEYDOWN'))
+	}
+	static WM_KEYDOWN(wParam, lParam, msg, hwnd)
+	{
+		if(hwnd != this.edit.Hwnd)
+			return
+		if(wParam == GetKeyVK('Enter') && !GetKeyState('Shift') && !GetKeyState('Ctrl') && !GetKeyState('Alt'))
+		{
+			execute_command()
+			return 0
+		}
 	}
 	static WM_RBUTTON(wParam, lParam, msg, hwnd)
 	{

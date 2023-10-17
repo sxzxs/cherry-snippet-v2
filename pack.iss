@@ -24,7 +24,7 @@ DisableProgramGroupPage=yes
 ; 以下行取消注释，以在非管理安装模式下运行（仅为当前用户安装）。
 ;PrivilegesRequired=lowest
 OutputDir=E:\打包
-OutputBaseFilename=mysetup
+OutputBaseFilename=CherrySnippet-setup
 SetupIconFile=E:\我的AHK程序\cherry-snippet-v2\icons\main.ico
 Compression=lzma
 SolidCompression=yes

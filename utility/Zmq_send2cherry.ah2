@@ -20,9 +20,9 @@ class Zmq_send2cherry
 		try
 		{
 			command := '"' cfg['cherry_tree_path'] '" "'  cfg['db_path'] '"'
-			if(!IsSet(data))
+			if(!FindProcessByExePath(cfg['cherry_tree_path']))
 				Run(command)
-			if(IsSet(data))
+			if(IsSet(data) && IsInteger(data))
 				zmq_send_string(this.socket, data,, ZMQ_DONTWAIT)
 		}
 	}

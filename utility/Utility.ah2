@@ -178,3 +178,20 @@ set_editor_cursor_end(handle)
     SendMessage(0xB1, -2, -1,, 'ahk_id ' handle)
     SendMessage(0xB7,,,, 'ahk_id ' handle)
 }
+
+;by tebayaki
+;MsgBox FindProcessByExePath("C:\Windows\explorer.exe")
+FindProcessByExePath(exePath, max := 300) {
+    buf := Buffer(max * 4)
+    DllCall("psapi\EnumProcesses", "ptr", buf, "uint", buf.Size, "uint*", 0)
+    VarSetStrCapacity(&found, 261)
+    while A_Index < max && pid := NumGet(buf, A_Index * 4, "uint") {
+        if h := DllCall("OpenProcess", "uint", 0x410, "int", false, "uint", pid, "ptr") {
+            DllCall("psapi\GetModuleFileNameExW", "ptr", h, "ptr", 0, "str", found, "uint", 261)
+            DllCall("CloseHandle", "ptr", h)
+            if found = exePath
+                return pid
+        }
+    }
+    return 0
+}

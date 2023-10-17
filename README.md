@@ -75,3 +75,5 @@ ctrl+enter,把对于的英文转为变量名称
 ### TODO
 * 快捷键设置ui完善
 * html格式内容存入剪贴板
+
+![图 0](images/b685de266f2fba06c5aef9880362969bab870e0202194c13b065c73c0037441c.png)  
